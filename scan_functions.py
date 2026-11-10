@@ -17,3 +17,4 @@ for i, line in enumerate(lines):
         if any(w in lines[min(len(lines)-1, i+1)] + lines[min(len(lines)-1, i+2)] for w in ['return', 'jsx', 'useState', 'useEffect']):
             pass
         print(f"L{i+1}: function {name}")
+

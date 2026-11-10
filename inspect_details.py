@@ -15,3 +15,4 @@ for match in re.finditer(r'localStorage\.(?:getItem|setItem)\(["\']([^"\']+)["\'
 print("\nAudio/sounds:")
 for match in re.finditer(r'(AudioContext|webkitAudioContext|oscillator|sound|synth)', js, re.IGNORECASE):
     print(" ", match.group(0))
+

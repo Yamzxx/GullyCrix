@@ -3,3 +3,4 @@ with open('app_extracted_code.js', 'r', encoding='utf-8') as f:
 
 pos = code.find('const hC = [')
 print(code[pos:pos+4500])
+

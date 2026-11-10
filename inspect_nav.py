@@ -9,3 +9,4 @@ for m in re.finditer(r'["\']\/(?:matches|stats|profile)["\']', code):
     print("Match at pos:", pos)
     print(code[max(0, pos-200):min(len(code), pos+300)])
     print("=" * 50)
+

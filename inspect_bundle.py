@@ -16,3 +16,4 @@ keywords = [
 
 for kw in keywords:
     print(f'{kw:25} -> {kw.lower() in js.lower()}')
+

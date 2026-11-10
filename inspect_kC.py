@@ -3,3 +3,4 @@ with open('app_extracted_code.js', 'r', encoding='utf-8') as f:
 
 pos = code.find('function kC()')
 print(code[pos:pos+3500])
+

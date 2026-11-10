@@ -36,3 +36,4 @@ match = {
 
 # 6 + 4 + 4 + 2 + 2 + 2 = 20 runs, 6 balls, 1 six, 2 fours, 0 wickets.
 print("Match test passed!")
+

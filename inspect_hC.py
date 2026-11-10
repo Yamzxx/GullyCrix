@@ -8,3 +8,4 @@ for m in re.finditer(r'hC', code):
     print("Match at pos:", pos)
     print(code[max(0, pos-200):min(len(code), pos+500)])
     print("=" * 50)
+

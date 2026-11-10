@@ -347,3 +347,4 @@ function GullyAIChatbot({ isMatch, currentPath }) {
 }
 '''
 print("Chatbot code is ready to embed!")
+

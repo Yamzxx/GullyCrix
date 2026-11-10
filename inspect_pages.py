@@ -12,3 +12,4 @@ for page in ['Home', 'Match', 'Matches', 'Stats', 'Profile', 'Setup', 'Result']:
         print(f"Found function {page} at {pos}:")
         print(js[pos:pos+200])
         pos += len(page)
+

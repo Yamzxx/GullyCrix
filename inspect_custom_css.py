@@ -13,3 +13,4 @@ for cls in ['pitch-bg', 'mow', 'press', 'pitch-stripes', 'seam']:
     if pos != -1:
         print(f"\nRule for .{cls}:")
         print(css[pos:css.find('}', pos) + 1])
+

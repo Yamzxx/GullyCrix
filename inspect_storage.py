@@ -19,3 +19,4 @@ for m in re.finditer(r'apiRequest|\/api\/', js):
     print(js[start:end])
     print("-" * 40)
     break
+

@@ -100,3 +100,4 @@ with open("public/assets/index-BJ4u41Uh.js", "w", encoding="utf-8") as f_out:
     f_out.write(js)
 
 print("Saved modified bundle to public/assets/index-BJ4u41Uh.js! Size:", len(js))
+
