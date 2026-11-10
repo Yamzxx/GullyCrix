@@ -1,0 +1,23 @@
+{
+  "name": "gully-crix",
+  "version": "1.0.0",
+  "description": "Gully Crix — Street Cricket Scoring App with Gully AI Assistant",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "build": "vite build"
+  },
+  "keywords": ["cricket", "scoring", "gully-cricket", "ai-assistant"],
+  "author": "Yamzxx",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}
