@@ -120,18 +120,17 @@ function GullyAIChatbot({ isMatch, currentPath }) {
   return h.jsxs("div", {
     className: "gully-ai-root",
     children: [
-      // Floating circular button
+      // Floating circular button (always accessible at bottom-right)
       h.jsxs("button", {
         onClick: () => setIsOpen(!isOpen),
         className: Rt(
-          "press fixed z-50 h-14 w-14 rounded-full bg-[#102B17] text-[#F8F5E8] shadow-[0_10px_25px_-5px_rgba(11,28,16,.6)] ring-4 ring-[#F8F5E8] flex items-center justify-center transition-all duration-200",
+          "press fixed z-40 h-14 w-14 rounded-full bg-[#102B17] text-[#F8F5E8] shadow-[0_10px_25px_-5px_rgba(11,28,16,.6)] ring-4 ring-[#F8F5E8] flex items-center justify-center transition-transform duration-200",
           isMatch ? "bottom-4 right-4" : "bottom-24 md:bottom-6 right-5 md:right-6",
-          isOpen && "rotate-90 scale-90"
+          isOpen && "rotate-90 scale-95"
         ),
         "aria-label": "Toggle Gully AI Chatbot",
         "title": "Gully AI Cricket Assistant",
         children: [
-          // SVG Cricket / AI Icon
           h.jsxs("svg", {
             viewBox: "0 0 24 24",
             className: "h-7 w-7",
@@ -147,7 +146,6 @@ function GullyAIChatbot({ isMatch, currentPath }) {
               h.jsx("circle", { cx: "12", cy: "12", r: "1.5", fill: "#F5C451", stroke: "none" })
             ]
           }),
-          // Small yellow AI badge
           !isOpen && h.jsx("span", {
             className: "absolute -top-1 -right-1 h-5 px-1.5 rounded-full bg-[#F5C451] text-[#0B1C10] font-black text-[10px] grid place-items-center ring-2 ring-[#102B17]",
             children: "AI"
@@ -155,188 +153,190 @@ function GullyAIChatbot({ isMatch, currentPath }) {
         ]
       }),
 
-      // Backdrop overlay on mobile when open
-      isOpen && h.jsx("div", {
-        onClick: () => setIsOpen(false),
-        className: "fixed inset-0 z-40 bg-[#0B1C10]/40 backdrop-blur-[1px] md:hidden"
-      }),
-
-      // Sliding chat drawer panel from the right
-      h.jsxs("aside", {
-        className: Rt(
-          "fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[410px] max-w-full bg-[#F8F5E8] shadow-[-12px_0_35px_rgba(11,28,16,.3)] flex flex-col transition-transform duration-300 ease-out border-l border-[#0B1C10]/10",
-          isOpen ? "translate-x-0" : "translate-x-full"
-        ),
-        "aria-label": "Gully AI Panel",
+      // Drawer panel only rendered when isOpen is true
+      isOpen && h.jsxs("div", {
         children: [
-          // Header
-          h.jsxs("div", {
-            className: "bg-[#102B17] text-[#F8F5E8] px-5 py-4 flex items-center justify-between border-b border-[#0B1C10]",
+          // Backdrop overlay
+          h.jsx("div", {
+            onClick: () => setIsOpen(false),
+            className: "fixed inset-0 z-50 bg-[#0B1C10]/40 backdrop-blur-[2px]"
+          }),
+
+          // Sliding chat drawer panel from the right
+          h.jsxs("aside", {
+            className: "fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[390px] max-w-full bg-[#F8F5E8] shadow-[-12px_0_35px_rgba(11,28,16,.4)] flex flex-col border-l border-[#0B1C10]/15",
+            "aria-label": "Gully AI Panel",
             children: [
+              // Header
               h.jsxs("div", {
-                className: "flex items-center gap-3",
+                className: "bg-[#102B17] text-[#F8F5E8] px-5 py-4 flex items-center justify-between border-b border-[#0B1C10]",
                 children: [
-                  h.jsx("div", {
-                    className: "h-9 w-9 rounded-full bg-[#F5C451] text-[#0B1C10] grid place-items-center font-black text-xs shadow",
-                    children: "AI"
-                  }),
                   h.jsxs("div", {
+                    className: "flex items-center gap-3",
                     children: [
+                      h.jsx("div", {
+                        className: "h-9 w-9 rounded-full bg-[#F5C451] text-[#0B1C10] grid place-items-center font-black text-xs shadow",
+                        children: "AI"
+                      }),
                       h.jsxs("div", {
-                        className: "flex items-center gap-2",
                         children: [
-                          h.jsx("h2", {
-                            className: "text-lg font-black tracking-tight",
-                            children: "Gully AI"
+                          h.jsxs("div", {
+                            className: "flex items-center gap-2",
+                            children: [
+                              h.jsx("h2", {
+                                className: "text-lg font-black tracking-tight",
+                                children: "Gully AI"
+                              }),
+                              h.jsx("span", {
+                                className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-pulse"
+                              })
+                            ]
                           }),
-                          h.jsx("span", {
-                            className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-pulse"
+                          h.jsx("p", {
+                            className: "text-[11px] text-[#F5C451] font-semibold tracking-wide uppercase",
+                            children: "Cricket Rules & Analyst"
                           })
                         ]
-                      }),
-                      h.jsx("p", {
-                        className: "text-[11px] text-[#F5C451] font-semibold tracking-wide uppercase",
-                        children: "Cricket Rules & Analyst"
                       })
                     ]
-                  })
-                ]
-              }),
-              h.jsx("button", {
-                onClick: () => setIsOpen(false),
-                className: "press h-9 w-9 rounded-full bg-[#F8F5E8]/10 hover:bg-[#F8F5E8]/20 grid place-items-center text-[#F8F5E8]",
-                "aria-label": "Close Gully AI",
-                children: h.jsx("svg", {
-                  viewBox: "0 0 24 24",
-                  className: "h-5 w-5",
-                  fill: "none",
-                  stroke: "currentColor",
-                  strokeWidth: "2.5",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  children: [
-                    h.jsx("line", { x1: "18", y1: "6", x2: "6", y2: "18" }),
-                    h.jsx("line", { x1: "6", y1: "6", x2: "18", y2: "18" })
-                  ]
-                })
-              })
-            ]
-          }),
-
-          // Messages list
-          h.jsxs("div", {
-            className: "flex-1 overflow-y-auto p-4 space-y-3.5 bg-[#F8F5E8]",
-            children: [
-              messages.map((m) =>
-                h.jsxs("div", {
-                  key: m.id,
-                  className: Rt(
-                    "flex flex-col max-w-[88%]",
-                    m.role === "user" ? "ml-auto items-end" : "mr-auto items-start"
-                  ),
-                  children: [
-                    h.jsx("div", {
-                      className: Rt(
-                        "rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap shadow-sm",
-                        m.role === "user"
-                          ? "bg-[#102B17] text-[#F8F5E8] rounded-tr-sm"
-                          : "bg-[#FBF9F0] text-[#0B1C10] border border-[#0B1C10]/10 rounded-tl-sm"
-                      ),
-                      children: m.text
-                    }),
-                    h.jsx("span", {
-                      className: "text-[10px] text-[#0B1C10]/40 mt-1 px-1 font-medium",
-                      children: m.time
-                    })
-                  ]
-                })
-              ),
-
-              // Typing indicator
-              loading && h.jsxs("div", {
-                className: "flex items-center gap-1.5 p-3 rounded-2xl bg-[#FBF9F0] border border-[#0B1C10]/10 w-fit",
-                children: [
-                  h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "0ms" } }),
-                  h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "150ms" } }),
-                  h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "300ms" } }),
-                  h.jsx("span", { className: "text-xs font-semibold text-[#0B1C10]/60 ml-1.5", children: "Gully AI is thinking..." })
-                ]
-              }),
-
-              // Quick question chips when chat has few messages
-              messages.length <= 2 && h.jsxs("div", {
-                className: "pt-2",
-                children: [
-                  h.jsx("p", {
-                    className: "text-xs font-bold text-[#0B1C10]/50 uppercase tracking-wider mb-2",
-                    children: "Suggested Topics:"
                   }),
-                  h.jsx("div", {
-                    className: "flex flex-wrap gap-1.5",
-                    children: quickQuestions.map((q) =>
-                      h.jsx("button", {
-                        key: q,
-                        onClick: () => handleSend(q),
-                        className: "press text-xs font-semibold px-3 py-1.5 rounded-full bg-[#102B17]/6 hover:bg-[#102B17]/12 text-[#0B1C10] border border-[#0B1C10]/10 text-left transition-colors",
-                        children: q
-                      })
-                    )
+                  h.jsx("button", {
+                    onClick: () => setIsOpen(false),
+                    className: "press h-9 w-9 rounded-full bg-[#F8F5E8]/10 hover:bg-[#F8F5E8]/20 grid place-items-center text-[#F8F5E8]",
+                    "aria-label": "Close Gully AI",
+                    children: h.jsx("svg", {
+                      viewBox: "0 0 24 24",
+                      className: "h-5 w-5",
+                      fill: "none",
+                      stroke: "currentColor",
+                      strokeWidth: "2.5",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      children: [
+                        h.jsx("line", { x1: "18", y1: "6", x2: "6", y2: "18" }),
+                        h.jsx("line", { x1: "6", y1: "6", x2: "18", y2: "18" })
+                      ]
+                    })
                   })
                 ]
               }),
 
-              h.jsx("div", { ref: messagesEndRef })
-            ]
-          }),
+              // Messages list
+              h.jsxs("div", {
+                className: "flex-1 overflow-y-auto p-4 space-y-3.5 bg-[#F8F5E8]",
+                children: [
+                  messages.map((m) =>
+                    h.jsxs("div", {
+                      key: m.id,
+                      className: Rt(
+                        "flex flex-col max-w-[88%]",
+                        m.role === "user" ? "ml-auto items-end" : "mr-auto items-start"
+                      ),
+                      children: [
+                        h.jsx("div", {
+                          className: Rt(
+                            "rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap shadow-sm",
+                            m.role === "user"
+                              ? "bg-[#102B17] text-[#F8F5E8] rounded-tr-sm"
+                              : "bg-[#FBF9F0] text-[#0B1C10] border border-[#0B1C10]/10 rounded-tl-sm"
+                          ),
+                          children: m.text
+                        }),
+                        h.jsx("span", {
+                          className: "text-[10px] text-[#0B1C10]/40 mt-1 px-1 font-medium",
+                          children: m.time
+                        })
+                      ]
+                    })
+                  ),
 
-          // Error banner if any
-          errorMsg && h.jsxs("div", {
-            className: "mx-4 mb-2 p-2.5 rounded-xl bg-[#E52525]/10 border border-[#E52525]/20 text-[#E52525] text-xs font-semibold flex items-center justify-between",
-            children: [
-              h.jsx("span", { children: errorMsg }),
-              h.jsx("button", {
-                onClick: () => setErrorMsg(null),
-                className: "underline font-bold text-[10px]",
-                children: "Dismiss"
-              })
-            ]
-          }),
+                  // Typing indicator
+                  loading && h.jsxs("div", {
+                    className: "flex items-center gap-1.5 p-3 rounded-2xl bg-[#FBF9F0] border border-[#0B1C10]/10 w-fit",
+                    children: [
+                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "0ms" } }),
+                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "150ms" } }),
+                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "300ms" } }),
+                      h.jsx("span", { className: "text-xs font-semibold text-[#0B1C10]/60 ml-1.5", children: "Gully AI is thinking..." })
+                    ]
+                  }),
 
-          // Input form
-          h.jsxs("form", {
-            onSubmit: (e) => {
-              e.preventDefault();
-              handleSend();
-            },
-            className: "p-3 bg-[#FBF9F0] border-t border-[#0B1C10]/10 flex items-center gap-2",
-            children: [
-              h.jsx("input", {
-                type: "text",
-                value: input,
-                onChange: (e) => setInput(e.target.value),
-                placeholder: "Ask cricket rules, stats, or scoring...",
-                disabled: loading,
-                className: "flex-1 h-11 bg-[#F8F5E8] border border-[#0B1C10]/15 rounded-2xl px-4 text-sm text-[#0B1C10] placeholder-[#0B1C10]/40 outline-none focus:ring-2 focus:ring-[#4CAF50] disabled:opacity-50",
-                "aria-label": "Message Gully AI"
+                  // Quick question chips when chat has few messages
+                  messages.length <= 2 && h.jsxs("div", {
+                    className: "pt-2",
+                    children: [
+                      h.jsx("p", {
+                        className: "text-xs font-bold text-[#0B1C10]/50 uppercase tracking-wider mb-2",
+                        children: "Suggested Topics:"
+                      }),
+                      h.jsx("div", {
+                        className: "flex flex-wrap gap-1.5",
+                        children: quickQuestions.map((q) =>
+                          h.jsx("button", {
+                            key: q,
+                            onClick: () => handleSend(q),
+                            className: "press text-xs font-semibold px-3 py-1.5 rounded-full bg-[#102B17]/6 hover:bg-[#102B17]/12 text-[#0B1C10] border border-[#0B1C10]/10 text-left transition-colors",
+                            children: q
+                          })
+                        )
+                      })
+                    ]
+                  }),
+
+                  h.jsx("div", { ref: messagesEndRef })
+                ]
               }),
-              h.jsx("button", {
-                type: "submit",
-                disabled: !input.trim() || loading,
-                className: "press h-11 w-11 rounded-2xl bg-[#F5C451] text-[#0B1C10] grid place-items-center font-bold hover:brightness-105 active:scale-95 disabled:opacity-40 shrink-0",
-                "aria-label": "Send message",
-                children: h.jsx("svg", {
-                  viewBox: "0 0 24 24",
-                  className: "h-5 w-5",
-                  fill: "none",
-                  stroke: "currentColor",
-                  strokeWidth: "2.5",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  children: [
-                    h.jsx("line", { x1: "22", y1: "2", x2: "11", y2: "13" }),
-                    h.jsx("polygon", { points: "22 2 15 22 11 13 2 9 22 2" })
-                  ]
-                })
+
+              // Error banner if any
+              errorMsg && h.jsxs("div", {
+                className: "mx-4 mb-2 p-2.5 rounded-xl bg-[#E52525]/10 border border-[#E52525]/20 text-[#E52525] text-xs font-semibold flex items-center justify-between",
+                children: [
+                  h.jsx("span", { children: errorMsg }),
+                  h.jsx("button", {
+                    onClick: () => setErrorMsg(null),
+                    className: "underline font-bold text-[10px]",
+                    children: "Dismiss"
+                  })
+                ]
+              }),
+
+              // Input form
+              h.jsxs("form", {
+                onSubmit: (e) => {
+                  e.preventDefault();
+                  handleSend();
+                },
+                className: "p-3 bg-[#FBF9F0] border-t border-[#0B1C10]/10 flex items-center gap-2",
+                children: [
+                  h.jsx("input", {
+                    type: "text",
+                    value: input,
+                    onChange: (e) => setInput(e.target.value),
+                    placeholder: "Ask cricket rules, stats, or scoring...",
+                    disabled: loading,
+                    className: "flex-1 h-11 bg-[#F8F5E8] border border-[#0B1C10]/15 rounded-2xl px-4 text-sm text-[#0B1C10] placeholder-[#0B1C10]/40 outline-none focus:ring-2 focus:ring-[#4CAF50] disabled:opacity-50",
+                    "aria-label": "Message Gully AI"
+                  }),
+                  h.jsx("button", {
+                    type: "submit",
+                    disabled: !input.trim() || loading,
+                    className: "press h-11 w-11 rounded-2xl bg-[#F5C451] text-[#0B1C10] grid place-items-center font-bold hover:brightness-105 active:scale-95 disabled:opacity-40 shrink-0",
+                    "aria-label": "Send message",
+                    children: h.jsx("svg", {
+                      viewBox: "0 0 24 24",
+                      className: "h-5 w-5",
+                      fill: "none",
+                      stroke: "currentColor",
+                      strokeWidth: "2.5",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      children: [
+                        h.jsx("line", { x1: "22", y1: "2", x2: "11", y2: "13" }),
+                        h.jsx("polygon", { points: "22 2 15 22 11 13 2 9 22 2" })
+                      ]
+                    })
+                  })
+                ]
               })
             ]
           })
@@ -346,5 +346,3 @@ function GullyAIChatbot({ isMatch, currentPath }) {
   });
 }
 '''
-print("Chatbot code is ready to embed!")
-
