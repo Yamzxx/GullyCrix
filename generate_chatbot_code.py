@@ -120,12 +120,17 @@ function GullyAIChatbot({ isMatch, currentPath }) {
   return h.jsxs("div", {
     className: "gully-ai-root",
     children: [
-      // Floating circular button (always accessible at bottom-right)
+      // Floating circular button (always positioned at bottom-right corner)
       h.jsxs("button", {
         onClick: () => setIsOpen(!isOpen),
+        style: {
+          position: "fixed",
+          right: "24px",
+          bottom: isMatch ? "16px" : "24px",
+          zIndex: 45
+        },
         className: Rt(
-          "press fixed z-40 h-14 w-14 rounded-full bg-[#102B17] text-[#F8F5E8] shadow-[0_10px_25px_-5px_rgba(11,28,16,.6)] ring-4 ring-[#F8F5E8] flex items-center justify-center transition-transform duration-200",
-          isMatch ? "bottom-4 right-4" : "bottom-24 md:bottom-6 right-5 md:right-6",
+          "press h-14 w-14 rounded-full bg-[#102B17] text-[#F8F5E8] shadow-[0_10px_25px_-5px_rgba(11,28,16,.6)] ring-4 ring-[#F8F5E8] flex items-center justify-center transition-transform duration-200",
           isOpen && "rotate-90 scale-95"
         ),
         "aria-label": "Toggle Gully AI Chatbot",
@@ -159,12 +164,25 @@ function GullyAIChatbot({ isMatch, currentPath }) {
           // Backdrop overlay
           h.jsx("div", {
             onClick: () => setIsOpen(false),
-            className: "fixed inset-0 z-50 bg-[#0B1C10]/40 backdrop-blur-[2px]"
+            style: { position: "fixed", inset: 0, zIndex: 55, backgroundColor: "rgba(11, 28, 16, 0.45)", backdropFilter: "blur(2px)" }
           }),
 
           // Sliding chat drawer panel from the right
           h.jsxs("aside", {
-            className: "fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[390px] max-w-full bg-[#F8F5E8] shadow-[-12px_0_35px_rgba(11,28,16,.4)] flex flex-col border-l border-[#0B1C10]/15",
+            style: {
+              position: "fixed",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: "390px",
+              maxWidth: "100vw",
+              zIndex: 60,
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "#F8F5E8",
+              boxShadow: "-12px 0 35px rgba(11, 28, 16, 0.4)",
+              borderLeft: "1px solid rgba(11, 28, 16, 0.15)"
+            },
             "aria-label": "Gully AI Panel",
             children: [
               // Header

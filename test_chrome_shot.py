@@ -16,3 +16,4 @@ print("Returncode:", res.returncode)
 print("Stdout:", res.stdout)
 print("Stderr:", res.stderr)
 print("File exists:", os.path.exists(r"C:\Users\Yamini\.gemini\antigravity\brain\c4a5e638-6783-4fac-9b65-90d64719b6c2\screen_matches.png"))
+

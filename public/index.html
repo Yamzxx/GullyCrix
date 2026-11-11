@@ -13,6 +13,14 @@
       if (window.location.search.includes("nosplash")) {
         try { sessionStorage.setItem("gc.splash", "1"); } catch(e) {}
       }
+      if (window.location.search.includes("openbot")) {
+        window.addEventListener("load", () => {
+          setTimeout(() => {
+            const btn = document.querySelector('button[title="Gully AI Cricket Assistant"]');
+            if (btn) btn.click();
+          }, 300);
+        });
+      }
     </script>
     <script type="module" crossorigin src="/assets/index-BJ4u41Uh.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-C54n_v_5.css">
