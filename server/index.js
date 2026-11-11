@@ -34,71 +34,45 @@ function smartCricketResponse(message, context = {}) {
     query.includes("won")
   ) {
     const totalMatches = matches.length;
-    let completed = 0;
     let totalRuns = 0;
     let totalWickets = 0;
     let totalSixes = 0;
     let totalFours = 0;
     let totalBalls = 0;
-    let highestTotal = null;
-    const teamWins = {};
 
     matches.forEach((m) => {
-      if (m.config && Array.isArray(m.config.teams)) {
-        m.config.teams.forEach((t) => {
-          if (!teamWins[t.name]) teamWins[t.name] = { played: 0, won: 0 };
-        });
-      }
-
-      // Check events if available
       if (Array.isArray(m.events)) {
-        let matchRuns = 0;
-        let matchWkts = 0;
-        let matchBalls = 0;
         m.events.forEach((ev) => {
           if (ev.type === "ball") {
             const r = ev.runs || 0;
-            matchRuns += r;
-            if (ev.kind !== "wide" && ev.kind !== "noball") matchBalls++;
-            if (ev.kind === "wicket") matchWkts++;
+            totalRuns += r;
+            if (ev.kind !== "wide" && ev.kind !== "noball") totalBalls++;
+            if (ev.kind === "wicket") totalWickets++;
             if (r === 6) totalSixes++;
             if (r === 4) totalFours++;
           }
         });
-        totalRuns += matchRuns;
-        totalWickets += matchWkts;
-        totalBalls += matchBalls;
-
-        if (!highestTotal || matchRuns > highestTotal.runs) {
-          highestTotal = {
-            runs: matchRuns,
-            team: m.config?.teams?.[1]?.name || m.config?.teams?.[0]?.name || "Team",
-          };
-        }
       }
     });
 
-    // If we have custom stats from frontend context
-    const runsDisplay = stats.runs ?? (totalRuns || 20);
-    const sixesDisplay = stats.sixes ?? (totalSixes || 1);
-    const foursDisplay = stats.fours ?? (totalFours || 2);
-    const wktsDisplay = stats.wkts ?? (totalWickets || 0);
-    const ballsDisplay = stats.balls ?? (totalBalls || 6);
+    const runsDisplay = stats.runs ?? totalRuns;
+    const sixesDisplay = stats.sixes ?? totalSixes;
+    const foursDisplay = stats.fours ?? totalFours;
+    const wktsDisplay = stats.wkts ?? totalWickets;
+    const ballsDisplay = stats.balls ?? totalBalls;
     const oversDisplay = `${Math.floor(ballsDisplay / 6)}.${ballsDisplay % 6}`;
 
     return `📊 **Your Gully Numbers on This Device (${profileName}):**
-• **Total Matches:** ${totalMatches || 1}
+• **Total Matches:** ${totalMatches}
 • **Runs Scored:** ${runsDisplay}
 • **Sixes:** ${sixesDisplay} 💥 | **Fours:** ${foursDisplay} 🏏
 • **Wickets Taken:** ${wktsDisplay}
 • **Overs Bowled:** ${oversDisplay} overs
-• **Highest Total:** 20/0 (Team B)
-• **Scoring Rate:** 20.00 runs/over
 
-${totalMatches > 0 ? "All stats are automatically updated with every ball scored in the app!" : "Start a match from the Home screen or tap '+' in the sidebar to add your first numbers!"}`;
+${totalMatches > 0 ? "All stats are automatically updated with every ball scored in the app!" : "Start a match from the Home screen or tap '+' to add your first numbers!"}`;
   }
 
-  // 2. Check for Gully rules
+  // 2. Gully rules
   if (
     query.includes("gully") ||
     query.includes("street") ||
@@ -113,35 +87,35 @@ ${totalMatches > 0 ? "All stats are automatically updated with every ball scored
     return `🏏 **Standard Gully Cricket Rules & Traditions:**
 
 1. **One-Tip-One-Hand (Ek Tappa Ek Haath):**
-   A batsman can be caught out if the ball bounces once and is caught cleanly using only **one hand** (no touching the body, wall, or other hand).
-   
+   A batsman can be caught out if the ball bounces once and is caught cleanly using only **one hand**.
+
 2. **Direct Boundary = OUT / Lost Ball Rule:**
-   Hitting a ball directly over the boundary fence, terrace wall, or into a neighbor's house / drain is **OUT** — and the batsman who hit it must fetch the ball!
+   Hitting the ball directly over the boundary fence, terrace wall, or into a drain is **OUT** — and the batsman must fetch the ball!
 
 3. **Trial Ball (First Ball Trial):**
-   The very first delivery of the match to a new batsman is often declared a trial ball — no runs can be scored, and the batsman cannot be dismissed.
+   The very first delivery to a new batsman is a trial ball — no runs scored, cannot be dismissed.
 
 4. **Baby Over:**
-   An informal 3-ball or 4-ball over, commonly used when daylight is fading or to give everyone a chance to bowl.
+   An informal 3-ball or 4-ball over, used when daylight fades or to give everyone a chance to bowl.
 
 5. **Wall / Obstacle Rules:**
-   Hitting specific walls or parked cars directly may be declared 1 run, 2 runs, or a dead ball depending on ground agreement.`;
+   Hitting specific walls or parked cars may be 1 run, 2 runs, or dead ball — decided by ground agreement.`;
   }
 
-  // 3. LBW Rules
+  // 3. LBW
   if (query.includes("lbw") || query.includes("leg before")) {
     return `🛡️ **LBW (Leg Before Wicket) Explained:**
 
-Under Law 36 of Cricket, a batter is out LBW if all of the following conditions are met:
+Under Law 36 of Cricket, a batter is out LBW if:
 1. **The delivery is legal** (not a No Ball).
-2. **Pitching:** The ball pitches in line with the wickets OR outside the off-stump (it must *never* pitch outside leg stump).
-3. **Impact:** The ball strikes the batter's pad/body in line with the wickets (or outside off-stump if no genuine shot was attempted).
-4. **Wicket:** The trajectory shows the ball would have gone on to hit the stumps.
+2. **Pitching:** Ball pitches in line with the wickets or outside off-stump (never outside leg stump).
+3. **Impact:** Ball strikes the pad in line with the wickets.
+4. **Trajectory:** Ball would have gone on to hit the stumps.
 
-*Note for Gully Cricket:* In most gully matches, LBW is turned **OFF** by default to prevent heated arguments! You can play purely with bowled, caught, and run-outs.`;
+*Note for Gully Cricket:* LBW is turned **OFF** by default in GULLY CRIX to prevent arguments. Play purely with bowled, caught, and run-outs!`;
   }
 
-  // 4. Extras (Wide & No Ball)
+  // 4. Extras
   if (
     query.includes("wide") ||
     query.includes("no ball") ||
@@ -151,20 +125,16 @@ Under Law 36 of Cricket, a batter is out LBW if all of the following conditions 
   ) {
     return `⚡ **Extras & Illegal Deliveries in Gully Crix:**
 
-• **Wide Ball:**
-  Awarded when the ball passes outside the batsman's reach. By default, it grants **+1 run** to the batting team, does not count as a legal delivery (must be re-bowled), and the batsman cannot be out stumped or bowled.
-  
-• **No Ball:**
-  Called if the bowler oversteps the crease, bowls above waist height without pitching (beamer), or breaches field restrictions. Grants **+1 run**, delivery must be re-bowled, and triggers a **Free Hit** on the next ball!
+• **Wide Ball:** Grants +1 run, doesn't count as a legal delivery, must be re-bowled.
 
-• **Free Hit:**
-  On the delivery following a No Ball, the batter can only be dismissed via **Run Out** (not bowled, caught, or stumped).
+• **No Ball:** Overstep or above-waist beamer. Grants +1 run, delivery re-bowled, triggers a **Free Hit** next ball!
 
-• **Byes & Leg Byes:**
-  Runs scored when the ball bypasses the bat without hitting the bat (Byes) or deflection off the pad (Leg Byes).`;
+• **Free Hit:** On the delivery after a No Ball, the batter can only be dismissed via **Run Out**.
+
+• **Byes & Leg Byes:** Runs scored without the ball touching the bat (Byes) or deflecting off the pad (Leg Byes).`;
   }
 
-  // 5. Overs & Run Rate
+  // 5. Run Rate / Overs
   if (
     query.includes("run rate") ||
     query.includes("crr") ||
@@ -174,116 +144,105 @@ Under Law 36 of Cricket, a batter is out LBW if all of the following conditions 
   ) {
     return `📈 **Run Rate & Overs Formulas:**
 
-• **Current Run Rate (CRR):**
-  $$\\text{CRR} = \\frac{\\text{Total Runs}}{\\text{Overs Bowled}}$$
-  *Example:* 45 runs in 5.0 overs = 9.00 runs per over.
+• **Current Run Rate (CRR):** Runs ÷ Overs Bowled
+  *Example:* 45 runs in 5.0 overs = **9.00 runs/over**
 
-• **Required Run Rate (RRR):**
-  $$\\text{RRR} = \\frac{\\text{Runs Needed}}{\\text{Remaining Overs}}$$
-  *Example:* 30 runs needed off 18 balls (3.0 overs) = 10.00 RRR.
+• **Required Run Rate (RRR):** Runs Needed ÷ Remaining Overs
+  *Example:* 30 runs needed in 3.0 overs = **10.00 RRR**
 
-• **Net Run Rate (NRR):**
-  $$\\text{NRR} = \\left(\\frac{\\text{Runs Scored}}{\\text{Overs Faced}}\\right) - \\left(\\frac{\\text{Runs Conceded}}{\\text{Overs Bowled}}\\right)$$
+• **Net Run Rate (NRR):** (Runs Scored / Overs Faced) − (Runs Conceded / Overs Bowled)
 
-• **Overs Notation:**
-  6 balls = 1 over. $5.3$ overs means 5 completed overs and 3 balls (not 5.3 decimals).`;
+• **Overs Notation:** 6 balls = 1 over. "5.3 overs" means 5 complete overs and 3 balls.`;
   }
 
-  // 6. Default cricket help response
+  // 6. Default
   return `🏏 **Gully AI Cricket Assistant:**
 
-I can help you with anything cricket! Here are a few things you can ask:
-• **"Explain one-tip-one-hand"** or **"What are gully cricket rules?"**
+I can help you with anything cricket! Try asking:
+• **"Explain one-tip-one-hand"** or **"Gully cricket rules"**
 • **"How is LBW judged?"**
 • **"Show my match stats"** or **"Who won the last game?"**
-• **"How are wides and no-balls scored in this app?"**
+• **"How are wides and no-balls scored?"**
 • **"How do I calculate Net Run Rate?"**
 
 What would you like to know?`;
 }
 
-// Google Gemini API caller
-async function callGeminiAPI(apiKey, userMessage, history, matchContext) {
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+// ─── Grok (xAI) API caller ───────────────────────────────────────────────────
+// Grok uses an OpenAI-compatible REST API at api.x.ai
+async function callGrokAPI(apiKey, userMessage, history, matchContext) {
+  const endpoint = "https://api.x.ai/v1/chat/completions";
 
-  const systemInstruction = `You are Gully AI, the smart, friendly cricket umpire, scorer, and rules analyst for the GULLY CRIX application.
+  const systemPrompt = `You are Gully AI, the smart, friendly cricket umpire, scorer, and rules analyst for the GULLY CRIX application.
+
 Your character:
 - Passionate about cricket (both formal international cricket rules and beloved street/gully cricket customs).
 - Explains cricket rules (LBW, wides, no-balls, overs, wickets, run rates) clearly and concisely.
 - Knowledgeable about gully cricket rules: "one-tip-one-hand", "boundary wall out", "trial ball", "baby over", "lost ball".
 - Can inspect and reference the user's active matches and statistics stored on their device.
-- Keep answers formatted in clean, easy-to-read markdown with emojis. Be concise and direct.
+- Keep answers formatted in clean, easy-to-read markdown with emojis. Be concise and direct. Max 300 words.
 
 User's current app state:
 - User Name: ${matchContext.profileName || "Gully scorer"}
 - Current View: ${matchContext.currentPath || "/"}
-- Total Matches: ${matchContext.matches ? matchContext.matches.length : 1}
-- Matches Summary: ${JSON.stringify(matchContext.matches || [])}
-- Stats: ${JSON.stringify(matchContext.stats || {})}`;
+- Total Matches: ${matchContext.matches ? matchContext.matches.length : 0}
+- Stats: Runs=${matchContext.stats?.runs ?? 0}, Sixes=${matchContext.stats?.sixes ?? 0}, Fours=${matchContext.stats?.fours ?? 0}, Wickets=${matchContext.stats?.wkts ?? 0}`;
 
-  // Format history for Gemini
-  const contents = [];
+  // Build messages array in OpenAI format
+  const messages = [{ role: "system", content: systemPrompt }];
 
   if (Array.isArray(history)) {
     history.slice(-6).forEach((msg) => {
       if (msg.role && msg.text) {
-        contents.push({
-          role: msg.role === "assistant" ? "model" : "user",
-          parts: [{ text: msg.text }],
+        messages.push({
+          role: msg.role === "assistant" ? "assistant" : "user",
+          content: msg.text,
         });
       }
     });
   }
 
-  // Append latest user message
-  contents.push({
-    role: "user",
-    parts: [{ text: userMessage }],
-  });
-
-  const payload = {
-    system_instruction: {
-      parts: [{ text: systemInstruction }],
-    },
-    contents: contents,
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 800,
-    },
-  };
+  messages.push({ role: "user", content: userMessage });
 
   const response = await fetch(endpoint, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: "grok-3-mini",   // free-tier model — fast & great for cricket Q&A
+      messages,
+      temperature: 0.7,
+      max_tokens: 600,
+    }),
   });
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Gemini API error (${response.status}): ${errorText}`);
+    throw new Error(`Grok API error (${response.status}): ${errorText}`);
   }
 
   const data = await response.json();
   const text =
-    data.candidates?.[0]?.content?.parts?.[0]?.text ||
+    data.choices?.[0]?.message?.content ||
     "I couldn't generate a response. Please try asking again!";
 
   return text;
 }
 
-// Health check endpoint
+// ─── Health check ─────────────────────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
-  const hasGeminiKey = !!process.env.GEMINI_API_KEY;
-  const hasOpenAIKey = !!process.env.OPENAI_API_KEY;
+  const hasGrokKey = !!process.env.GROK_API_KEY;
   res.json({
     status: "ok",
     appName: "GULLY CRIX",
-    hasApiKey: hasGeminiKey || hasOpenAIKey,
-    aiProvider: hasGeminiKey ? "Google Gemini" : hasOpenAIKey ? "OpenAI" : "Offline Knowledge Base",
+    hasApiKey: hasGrokKey,
+    aiProvider: hasGrokKey ? "xAI Grok" : "Offline Knowledge Base",
   });
 });
 
-// Chat API endpoint
+// ─── Chat endpoint ────────────────────────────────────────────────────────────
 app.post("/api/chat", async (req, res) => {
   try {
     const { message, history = [], matchContext = {} } = req.body;
@@ -292,33 +251,30 @@ app.post("/api/chat", async (req, res) => {
       return res.status(400).json({ error: "Message string is required." });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GROK_API_KEY;
 
     if (!apiKey) {
-      // Honest configuration message + smart verified cricket answer
+      // Honest offline mode — still gives real cricket answers
       const smartAnswer = smartCricketResponse(message, matchContext);
       const honestDisclaimer =
-        "⚠️ **Configuration Notice:** No `GEMINI_API_KEY` was detected in the environment. To activate live Google Gemini AI, add `GEMINI_API_KEY=your_key` in a `.env` file.\n\n*(Gully AI is currently providing verified cricket rulebook and local match data answers)*\n\n";
+        "⚠️ **Configuration Notice:** No `GROK_API_KEY` found. To activate live Grok AI, add your key to the `.env` file.\n\n*(Providing verified cricket rulebook answers)*\n\n";
 
       return res.json({
         reply: honestDisclaimer + smartAnswer,
         isConfigured: false,
-        note: "Add GEMINI_API_KEY to .env to enable live Gemini AI generation.",
+        note: "Add GROK_API_KEY=your_key to .env to enable live Grok AI.",
       });
     }
 
-    // Call live Gemini
+    // Call live Grok
     try {
-      const geminiReply = await callGeminiAPI(apiKey, message, history, matchContext);
-      return res.json({
-        reply: geminiReply,
-        isConfigured: true,
-      });
+      const grokReply = await callGrokAPI(apiKey, message, history, matchContext);
+      return res.json({ reply: grokReply, isConfigured: true });
     } catch (apiErr) {
-      console.error("Gemini API call failed, falling back to local engine:", apiErr.message);
+      console.error("Grok API call failed, falling back to local engine:", apiErr.message);
       const fallback = smartCricketResponse(message, matchContext);
       return res.json({
-        reply: `*(Live AI request temporarily unavailable: ${apiErr.message})*\n\n${fallback}`,
+        reply: `*(Live AI temporarily unavailable: ${apiErr.message})*\n\n${fallback}`,
         isConfigured: true,
         error: apiErr.message,
       });
@@ -329,11 +285,10 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// Serve frontend static files
+// ─── Static frontend ──────────────────────────────────────────────────────────
 const staticDir = path.join(rootDir, "public");
 app.use(express.static(staticDir));
 
-// Fallback to index.html for client-side routing
 app.get("*", (req, res) => {
   res.sendFile(path.join(staticDir, "index.html"));
 });
@@ -341,9 +296,10 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🏏 GULLY CRIX Server running on http://localhost:${PORT}`);
   console.log(`🤖 Gully AI API ready at http://localhost:${PORT}/api/chat`);
-  if (!process.env.GEMINI_API_KEY) {
-    console.log(`ℹ️  No GEMINI_API_KEY configured. Running in offline verified knowledge mode.`);
+  if (!process.env.GROK_API_KEY) {
+    console.log(`ℹ️  No GROK_API_KEY configured. Running in offline mode.`);
+    console.log(`   → Get a free key at: https://console.x.ai/`);
   } else {
-    console.log(`✅ GEMINI_API_KEY configured. Live Google Gemini AI enabled.`);
+    console.log(`✅ GROK_API_KEY configured. Live xAI Grok AI enabled!`);
   }
 });
