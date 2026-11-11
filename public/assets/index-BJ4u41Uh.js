@@ -267,12 +267,23 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                       children: [
                         h.jsx("div", {
                           className: Rt(
-                            "rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap shadow-sm",
+                            "rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm",
                             m.role === "user"
                               ? "bg-[#102B17] text-[#F8F5E8] rounded-tr-sm"
                               : "bg-[#FBF9F0] text-[#0B1C10] border border-[#0B1C10]/10 rounded-tl-sm"
                           ),
-                          children: m.text
+                          dangerouslySetInnerHTML: {
+                            __html: m.text
+                              .replace(/&/g, "&amp;")
+                              .replace(/</g, "&lt;")
+                              .replace(/>/g, "&gt;")
+                              .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+                              .replace(/\*(.+?)\*/g, "<em>$1</em>")
+                              .replace(/`(.+?)`/g, "<code style='background:rgba(0,0,0,0.08);padding:1px 5px;border-radius:4px;font-size:0.85em'>$1</code>")
+                              .replace(/^#{1,3} (.+)$/gm, "<strong>$1</strong>")
+                              .replace(/
+/g, "<br>")
+                          }
                         }),
                         h.jsx("span", {
                           className: "text-[10px] text-[#0B1C10]/40 mt-1 px-1 font-medium",
