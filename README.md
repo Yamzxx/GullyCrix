@@ -2,30 +2,22 @@
 
 > Fast, street-style cricket scoring app with **Gully AI** — your personal cricket rules analyst.
 
-![GULLY CRIX](public/favicon.svg)
-
----
-
-## What is this?
-
-**GULLY CRIX** is a local-first cricket scoring app for gully (street) cricket. Score matches live, track stats, and get cricket rules explained by **Gully AI** — a built-in AI cricket assistant.
-
 ---
 
 ## Features
 
-- 🏏 **Live Cricket Scoring** — Runs, wickets, overs, extras (wides, no-balls)
+- 🏏 **Live Cricket Scoring** — Runs, wickets, overs, extras (wides, no-balls, free hits)
 - 📊 **Match History** — Filter by All / Live / Complete / Abandoned
 - 📈 **Statistics** — Runs, sixes, fours, wickets, overs, scoring rate, highest total, team ledger
 - 👤 **Profile** — Custom scorer name, sound effects toggle, animations toggle
 - 💾 **Persistent Storage** — All data saved locally in `localStorage`
 - 📤 **JSON Export** — Export all match data
 - 🗑️ **Delete with Confirmation** — Safe match deletion
-- 🤖 **Gully AI** — Floating AI chatbot for cricket rules, scoring help, and match stats
+- 🤖 **Gully AI** — Highlighted floating cricket assistant for rules, scoring help, and live match stats
 
 ---
 
-## Getting Started
+## Run Locally
 
 ### 1. Install dependencies
 
@@ -33,29 +25,38 @@
 npm install
 ```
 
-### 2. (Optional) Enable live AI responses
+### 2. Configure a free AI key (optional)
 
-Create a `.env` file and add your Gemini API key:
+Copy `.env.example` to `.env` and add **one** API key:
+- **Groq (100% Free, no card):** `GROQ_API_KEY=...` from [console.groq.com/keys](https://console.groq.com/keys)
+- **Google Gemini (Free tier):** `GEMINI_API_KEY=...` from [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+- **xAI Grok:** `GROK_API_KEY=...` from [console.x.ai](https://console.x.ai/)
 
-```
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-> Without a key, Gully AI works in **offline mode** with a built-in cricket knowledge base. No features are locked.
+> Without a funded API key, Gully AI still responds using its built-in cricket rulebook and your local match stats.
 
 ### 3. Start the server
 
 ```bash
 npm start
-# or
-node server/index.js
 ```
 
-### 4. Open the app
+Open `http://localhost:5000`.
 
-```
-http://localhost:5000
-```
+---
+
+## Deploy on Render
+
+1. Push this repo to GitHub (`https://github.com/Yamzxx/GullyCrix`).
+2. Sign in to [render.com](https://render.com) → **New +** → **Web Service** (or **Blueprint** using `render.yaml`).
+3. Connect the `Yamzxx/GullyCrix` repository with these settings:
+   - **Runtime:** `Node`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Health Check Path:** `/api/health`
+4. Under **Environment** → **Environment Variables**, add your free AI key:
+   - Key: `GROQ_API_KEY` (or `GEMINI_API_KEY` / `GROK_API_KEY`)
+   - Value: *(your API key)*
+5. Click **Deploy Web Service**.
 
 ---
 
@@ -70,89 +71,9 @@ GullyCrix/
 │       ├── index-BJ4u41Uh.js  # App bundle (React SPA + Gully AI chatbot)
 │       └── index-C54n_v_5.css # App styles
 ├── server/
-│   └── index.js               # Express backend + /api/chat endpoint
-├── .env                       # Your local secrets (not committed)
+│   └── index.js               # Express backend + /api/chat + /api/health
+├── render.yaml                # Render Blueprint config
 ├── .env.example               # Template for environment variables
 ├── package.json
 └── README.md
 ```
-
----
-
-## Gully AI Chatbot
-
-The Gully AI chatbot is a **floating button** in the bottom-right corner of every page.
-
-Click it to open a cricket assistant that can:
-- Explain **gully cricket rules** (one-tip-one-hand, boundary-out, baby overs)
-- Answer **official cricket rules** (LBW, wides, no-balls, run rate, DLS)
-- Show your **match statistics** and history
-- Help with **scoring edge cases**
-
-**With `GEMINI_API_KEY`:** Powered by Gemini 1.5 Flash for live, context-aware responses.  
-**Without key:** Uses a built-in cricket knowledge base (always works offline).
-
----
-
-## Color Palette
-
-| Color | Hex | Used for |
-|-------|-----|----------|
-| Dark Forest Green | `#102B17` | Sidebar, cards, buttons |
-| Deepest Green | `#0B1C10` | Backgrounds, text |
-| Cricket Green | `#4CAF50` | Active states, icons |
-| Cream | `#F8F5E8` | Page background, text |
-| Yellow/Amber | `#F5C451` | Active nav, highlights |
-| Red | `#E52525` | Plus button, delete, wickets |
-
----
-
-## API Endpoints
-
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/health` | Server health + AI config status |
-| `POST` | `/api/chat` | Send a message to Gully AI |
-
-### POST `/api/chat`
-
-```json
-{
-  "message": "What is LBW?",
-  "history": [...],
-  "matchContext": {
-    "profileName": "Gully scorer",
-    "matches": [...],
-    "stats": { "runs": 20, "wkts": 0, ... }
-  }
-}
-```
-
----
-
-## Enabling Gemini AI
-
-1. Get a free API key from [Google AI Studio](https://aistudio.google.com/)
-2. Add to your `.env` file:
-   ```
-   GEMINI_API_KEY=your_key_here
-   ```
-3. Restart the server — Gully AI will automatically use Gemini 1.5 Flash
-
----
-
-## Data & Privacy
-
-- All match data is stored **only on your device** in `localStorage`
-- Nothing is sent to any server (except your chat messages to `/api/chat`)
-- Use **Export all data as JSON** in Profile to back up your matches
-- Use **Delete all matches** in Profile to wipe all data
-
----
-
-## GitHub
-
-```
-https://github.com/Yamzxx/GullyCrix
-```
-

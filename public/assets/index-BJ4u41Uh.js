@@ -16,6 +16,32 @@ Error generating stack: `+a.message+`
           }
         `),()=>{p.current?.removeAttribute("data-motion-pop-id"),nt.contains(st)&&nt.removeChild(st)}},[s]),h.jsx(n5,{isPresent:s,childRef:p,sizeRef:m,pop:d,children:d===!1?n:z.cloneElement(n,{ref:v})})}const s5=({children:n,initial:s,isPresent:l,onExitComplete:o,custom:c,presenceAffectsLayout:d,mode:f,anchorX:p,anchorY:m,root:g})=>{const x=wf(i5),v=z.useId(),S=z.useRef(l),j=z.useRef(o);Ef(()=>{S.current=l,j.current=o});let A=!0,C=z.useMemo(()=>(A=!1,{id:v,initial:s,isPresent:l,custom:c,onExitComplete:k=>{x.set(k,!0);for(const H of x.values())if(!H)return;o&&o()},register:k=>(x.set(k,!1),()=>{x.delete(k),!S.current&&!x.size&&j.current?.()})}),[l,x,o]);return d&&A&&(C={...C}),z.useMemo(()=>{x.forEach((k,H)=>x.set(H,!1))},[l]),z.useEffect(()=>{!l&&!x.size&&o&&o()},[l]),n=h.jsx(a5,{pop:f==="popLayout",isPresent:l,anchorX:p,anchorY:m,root:g,children:n}),h.jsx(Jo.Provider,{value:C,children:n})};function i5(){return new Map}function Qx(n=!0){const s=z.useContext(Jo);if(s===null)return[!0,null];const{isPresent:l,onExitComplete:o,register:c}=s,d=z.useId();z.useEffect(()=>{if(n)return c(d)},[n]);const f=z.useCallback(()=>n&&o&&o(d),[d,o,n]);return!l&&o?[!1,f]:[!0]}const wo=n=>n.key||"";function vy(n){const s=[];return z.Children.forEach(n,l=>{z.isValidElement(l)&&s.push(l)}),s}const Ns=({children:n,custom:s,initial:l=!0,onExitComplete:o,presenceAffectsLayout:c=!0,mode:d="sync",propagate:f=!1,anchorX:p="left",anchorY:m="top",root:g})=>{const[x,v]=Qx(f),S=z.useMemo(()=>vy(n),[n]),j=f&&!x?[]:S.map(wo),A=z.useRef(!0),C=z.useRef(S),k=wf(()=>new Map),H=z.useRef(new Set),[U,L]=z.useState(S),[K,P]=z.useState(S);Ef(()=>{A.current=!1,C.current=S;for(let V=0;V<K.length;V++){const J=wo(K[V]);j.includes(J)?(k.delete(J),H.current.delete(J)):k.get(J)!==!0&&k.set(J,!1)}},[K,j.length,j.join("-")]);const st=[];if(S!==U){let V=[...S];for(let J=0;J<K.length;J++){const Z=K[J],mt=wo(Z);j.includes(mt)||(V.splice(J,0,Z),st.push(Z))}return d==="wait"&&st.length&&(V=st),P(vy(V)),L(S),null}const{forceRender:nt}=z.useContext(Tf);return h.jsx(h.Fragment,{children:K.map(V=>{const J=wo(V),Z=f&&!x?!1:S===K||j.includes(J),mt=()=>{if(H.current.has(J))return;if(k.has(J))H.current.add(J),k.set(J,!0);else return;let ht=!0;k.forEach(Ut=>{Ut||(ht=!1)}),ht&&(nt?.(),P(C.current),f&&v?.(),o&&o())};return h.jsx(s5,{isPresent:Z,initial:!A.current||l?void 0:!1,custom:s,presenceAffectsLayout:c,mode:d,root:g,onExitComplete:Z?void 0:mt,anchorX:p,anchorY:m,children:V},J)})})},Px=z.createContext({strict:!1}),Sy={animation:["animate","variants","whileHover","whileTap","exit","whileInView","whileFocus","whileDrag"],exit:["exit"],drag:["drag","dragControls"],focus:["whileFocus"],hover:["whileHover","onHoverStart","onHoverEnd"],tap:["whileTap","onTap","onTapStart","onTapCancel"],pan:["onPan","onPanStart","onPanSessionStart","onPanEnd"],inView:["whileInView","onViewportEnter","onViewportLeave"],layout:["layout","layoutId"]};let Ty=!1;function l5(){if(Ty)return;const n={};for(const s in Sy)n[s]={isEnabled:l=>Sy[s].some(o=>!!l[o])};Ax(n),Ty=!0}function $x(){return l5(),YE()}function o5(n){const s=$x();for(const l in n)s[l]={...s[l],...n[l]};Ax(s)}const r5=new Set(["animate","exit","variants","initial","style","values","variants","transition","transformTemplate","custom","inherit","onBeforeLayoutMeasure","onAnimationStart","onAnimationComplete","onUpdate","onDragStart","onDrag","onDragEnd","onMeasureDragConstraints","onDirectionLock","onDragTransitionEnd","_dragX","_dragY","onHoverStart","onHoverEnd","onViewportEnter","onViewportLeave","globalTapTarget","propagate","ignoreStrict","viewport"]);function Zo(n){return n.startsWith("while")||n.startsWith("drag")&&n!=="draggable"||n.startsWith("layout")||n.startsWith("onTap")||n.startsWith("onPan")||n.startsWith("onLayout")||r5.has(n)}let Jx=n=>!Zo(n);function u5(n){typeof n=="function"&&(Jx=s=>s.startsWith("on")?!Zo(s):n(s))}try{u5(require("@emotion/is-prop-valid").default)}catch{}function c5(n,s,l){const o={};for(const c in n)c==="values"&&typeof n.values=="object"||ce(n[c])||(Jx(c)||l===!0&&Zo(c)||!s&&!Zo(c)||n.draggable&&c.startsWith("onDrag"))&&(o[c]=n[c]);return o}const nr=z.createContext({});function f5(n,s){if(er(n)){const{initial:l,animate:o}=n;return{initial:l===!1||$i(l)?l:void 0,animate:$i(o)?o:void 0}}return n.inherit!==!1?s:{}}function d5(n){const{initial:s,animate:l}=f5(n,z.useContext(nr));return z.useMemo(()=>({initial:s,animate:l}),[wy(s),wy(l)])}function wy(n){return Array.isArray(n)?n.join(" "):n}const Pf=()=>({style:{},transform:{},transformOrigin:{},vars:{}});function Wx(n,s,l){for(const o in s)!ce(s[o])&&!kx(o,l)&&(n[o]=s[o])}function h5({transformTemplate:n},s){return z.useMemo(()=>{const l=Pf();return Kf(l,s,n),Object.assign({},l.vars,l.style)},[s])}function m5(n,s){const l=n.style||{},o={};return Wx(o,l,n),Object.assign(o,h5(n,s)),o}function p5(n,s){const l={},o=m5(n,s);return n.drag&&n.dragListener!==!1&&(l.draggable=!1,o.userSelect=o.WebkitUserSelect=o.WebkitTouchCallout="none",o.touchAction=n.drag===!0?"none":`pan-${n.drag==="x"?"y":"x"}`),n.tabIndex===void 0&&(n.onTap||n.onTapStart||n.whileTap)&&(l.tabIndex=0),l.style=o,l}const Ix=()=>({...Pf(),attrs:{}});function g5(n,s,l,o){const c=z.useMemo(()=>{const d=Ix();return Ox(d,s,zx(o),n.transformTemplate,n.style),{...d.attrs,style:{...d.style}}},[s]);if(n.style){const d={};Wx(d,n.style,n),c.style={...d,...c.style}}return c}const y5=["animate","circle","defs","desc","ellipse","g","image","line","filter","marker","mask","metadata","path","pattern","polygon","polyline","rect","stop","switch","symbol","svg","text","tspan","use","view"];function $f(n){return typeof n!="string"||n.includes("-")?!1:!!(y5.indexOf(n)>-1||/[A-Z]/u.test(n))}function x5(n,s,l,{latestValues:o},c,d=!1,f){const m=(f??$f(n)?g5:p5)(s,o,c,n),g=c5(s,typeof n=="string",d),x=n!==z.Fragment?{...g,...m,ref:l}:{},{children:v}=s,S=z.useMemo(()=>ce(v)?v.get():v,[v]);return z.createElement(n,{...x,children:S})}function b5({scrapeMotionValuesFromProps:n,createRenderState:s},l,o,c){return{latestValues:v5(l,o,c,n),renderState:s()}}function v5(n,s,l,o){const c={},d=o(n,{});for(const S in d)c[S]=Bo(d[S]);let{initial:f,animate:p}=n;const m=er(n),g=wx(n);s&&g&&!m&&n.inherit!==!1&&(f===void 0&&(f=s.initial),p===void 0&&(p=s.animate));let x=l?l.initial===!1:!1;x=x||f===!1;const v=x?p:f;if(v&&typeof v!="boolean"&&!tr(v)){const S=Array.isArray(v)?v:[v];for(let j=0;j<S.length;j++){const A=Lf(n,S[j]);if(A){const{transitionEnd:C,transition:k,...H}=A;for(const U in H){let L=H[U];if(Array.isArray(L)){const K=x?L.length-1:0;L=L[K]}L!==null&&(c[U]=L)}for(const U in C)c[U]=C[U]}}}return c}const tb=n=>(s,l)=>{const o=z.useContext(nr),c=z.useContext(Jo),d=()=>b5(n,s,o,c);return l?d():wf(d)},S5=tb({scrapeMotionValuesFromProps:Zf,createRenderState:Pf}),T5=tb({scrapeMotionValuesFromProps:Vx,createRenderState:Ix}),w5=Symbol.for("motionComponentSymbol");function E5(n,s,l){const o=z.useRef(l);z.useInsertionEffect(()=>{o.current=l});const c=z.useRef(null);return z.useCallback(d=>{d&&n.onMount?.(d),s&&(d?s.mount(d):s.unmount());const f=o.current;if(typeof f=="function")if(d){const p=f(d);typeof p=="function"&&(c.current=p)}else c.current?(c.current(),c.current=null):f(d);else f&&(f.current=d)},[s])}const eb=z.createContext({});function As(n){return n&&typeof n=="object"&&Object.prototype.hasOwnProperty.call(n,"current")}function A5(n,s,l,o,c,d){const{visualElement:f}=z.useContext(nr),p=z.useContext(Px),m=z.useContext(Jo),g=z.useContext(Qf),x=g.reducedMotion,v=g.skipAnimations,S=z.useRef(null),j=z.useRef(!1);o=o||p.renderer,!S.current&&o&&(S.current=o(n,{visualState:s,parent:f,props:l,presenceContext:m,blockInitialAnimation:m?m.initial===!1:!1,reducedMotionConfig:x,skipAnimations:v,isSVG:d}),j.current&&S.current&&(S.current.manuallyAnimateOnMount=!0));const A=S.current,C=z.useContext(eb);A&&!A.projection&&c&&(A.type==="html"||A.type==="svg")&&C5(S.current,l,c,C);const k=z.useRef(!1);z.useInsertionEffect(()=>{A&&k.current&&A.update(l,m)});const H=l[fx],U=z.useRef(!!H&&typeof window<"u"&&!window.MotionHandoffIsComplete?.(H)&&window.MotionHasOptimisedAnimation?.(H));return Ef(()=>{j.current=!0,A&&(k.current=!0,window.MotionIsMounted=!0,A.updateFeatures(),A.scheduleRenderMicrotask(),U.current&&A.animationState&&A.animationState.animateChanges())}),z.useEffect(()=>{A&&(!U.current&&A.animationState&&A.animationState.animateChanges(),U.current&&(queueMicrotask(()=>{window.MotionHandoffMarkAsComplete?.(H)}),U.current=!1),A.enteringChildren=void 0)}),A}function C5(n,s,l,o){const{layoutId:c,layout:d,drag:f,dragConstraints:p,layoutScroll:m,layoutRoot:g,layoutAnchor:x,layoutCrossfade:v}=s;n.projection=new l(n.latestValues,s["data-framer-portal-id"]?void 0:nb(n.parent)),n.projection.setOptions({layoutId:c,layout:d,alwaysMeasureLayout:!!f||p&&As(p),visualElement:n,animationType:typeof d=="string"?d:"both",initialPromotionConfig:o,crossfade:v,layoutScroll:m,layoutRoot:g,layoutAnchor:x})}function nb(n){if(n)return n.options.allowProjection!==!1?n.projection:nb(n.parent)}function zc(n,{forwardMotionProps:s=!1,type:l}={},o,c){o&&o5(o);const d=l?l==="svg":$f(n),f=d?T5:S5;function p(g,x){let v;const S={...z.useContext(Qf),...g,layoutId:j5(g)},{isStatic:j}=S,A=d5(g),C=f(g,j);if(!j&&typeof window<"u"){M5();const k=N5(S);v=k.MeasureLayout,A.visualElement=A5(n,C,S,c,k.ProjectionNode,d)}return h.jsxs(nr.Provider,{value:A,children:[v&&A.visualElement?h.jsx(v,{visualElement:A.visualElement,...S}):null,x5(n,g,E5(C,A.visualElement,x),C,j,s,d)]})}p.displayName=`motion.${typeof n=="string"?n:`create(${n.displayName??n.name??""})`}`;const m=z.forwardRef(p);return m[w5]=n,m}function j5({layoutId:n}){const s=z.useContext(Tf).id;return s&&n!==void 0?s+"-"+n:n}function M5(n,s){z.useContext(Px).strict}function N5(n){const s=$x(),{drag:l,layout:o}=s;if(!l&&!o)return{};const c={...l,...o};return{MeasureLayout:l?.isEnabled(n)||o?.isEnabled(n)?c.MeasureLayout:void 0,ProjectionNode:c.ProjectionNode}}function R5(n,s){if(typeof Proxy>"u")return zc;const l=new Map,o=(d,f)=>zc(d,f,n,s),c=(d,f)=>o(d,f);return new Proxy(c,{get:(d,f)=>f==="create"?o:(l.has(f)||l.set(f,zc(f,void 0,n,s)),l.get(f))})}const D5=(n,s)=>s.isSVG??$f(n)?new oA(s):new eA(s,{allowProjection:n!==z.Fragment});class k5 extends ua{constructor(s){super(s),s.animationState||(s.animationState=dA(s))}updateAnimationControlsSubscription(){const{animate:s}=this.node.getProps();tr(s)&&(this.unmountControls=s.subscribe(this.node))}mount(){this.updateAnimationControlsSubscription()}update(){const{animate:s}=this.node.getProps(),{animate:l}=this.node.prevProps||{};s!==l&&this.updateAnimationControlsSubscription()}unmount(){this.node.animationState.reset(),this.unmountControls?.()}}let O5=0;class B5 extends ua{constructor(){super(...arguments),this.id=O5++,this.isExitComplete=!1}update(){if(!this.node.presenceContext)return;const{isPresent:s,onExitComplete:l}=this.node.presenceContext,{isPresent:o}=this.node.prevPresenceContext||{};if(!this.node.animationState||s===o)return;if(s&&o===!1){if(this.isExitComplete){const{initial:d,custom:f}=this.node.getProps();if(typeof d=="string"||typeof d=="object"&&d!==null&&!Array.isArray(d)){const p=za(this.node,d,f);if(p){const{transition:m,transitionEnd:g,...x}=p;for(const v in x)this.node.getValue(v)?.jump(x[v])}}this.node.animationState.reset(),this.node.animationState.animateChanges()}else this.node.animationState.setActive("exit",!1);this.isExitComplete=!1;return}const c=this.node.animationState.setActive("exit",!s);l&&!s&&c.then(()=>{this.isExitComplete=!0,l(this.id)})}mount(){const{register:s,onExitComplete:l}=this.node.presenceContext||{};l&&l(this.id),s&&(this.unmount=s(this.id))}unmount(){}}const z5={animation:{Feature:k5},exit:{Feature:B5}};function al(n){return{point:{x:n.pageX,y:n.pageY}}}const V5=n=>s=>Ff(s)&&n(s,al(s));function Xi(n,s,l,o){return Ji(n,s,V5(l),o)}const ab=({current:n})=>n?n.ownerDocument.defaultView:null,Ey=(n,s)=>Math.abs(n-s);function _5(n,s){const l=Ey(n.x,s.x),o=Ey(n.y,s.y);return Math.sqrt(l**2+o**2)}const Ay=new Set(["auto","scroll"]);class sb{constructor(s,l,{transformPagePoint:o,contextWindow:c=window,dragSnapToOrigin:d=!1,distanceThreshold:f=3,element:p}={}){if(this.startEvent=null,this.lastMoveEvent=null,this.lastMoveEventInfo=null,this.lastRawMoveEventInfo=null,this.handlers={},this.contextWindow=window,this.scrollPositions=new Map,this.removeScrollListeners=null,this.onElementScroll=A=>{this.handleScroll(A.target)},this.onWindowScroll=()=>{this.handleScroll(window)},this.updatePoint=()=>{if(!(this.lastMoveEvent&&this.lastMoveEventInfo))return;this.lastRawMoveEventInfo&&(this.lastMoveEventInfo=Eo(this.lastRawMoveEventInfo,this.transformPagePoint));const A=Vc(this.lastMoveEventInfo,this.history),C=this.startEvent!==null,k=_5(A.offset,{x:0,y:0})>=this.distanceThreshold;if(!C&&!k)return;const{point:H}=A,{timestamp:U}=re;this.history.push({...H,timestamp:U});const{onStart:L,onMove:K}=this.handlers;C||(L&&L(this.lastMoveEvent,A),this.startEvent=this.lastMoveEvent),K&&K(this.lastMoveEvent,A)},this.handlePointerMove=(A,C)=>{this.lastMoveEvent=A,this.lastRawMoveEventInfo=C,this.lastMoveEventInfo=Eo(C,this.transformPagePoint),_t.update(this.updatePoint,!0)},this.handlePointerUp=(A,C)=>{this.end();const{onEnd:k,onSessionEnd:H,resumeAnimation:U}=this.handlers;if((this.dragSnapToOrigin||!this.startEvent)&&U&&U(),!(this.lastMoveEvent&&this.lastMoveEventInfo))return;const L=Vc(A.type==="pointercancel"?this.lastMoveEventInfo:Eo(C,this.transformPagePoint),this.history);this.startEvent&&k&&k(A,L),H&&H(A,L)},!Ff(s))return;this.dragSnapToOrigin=d,this.handlers=l,this.transformPagePoint=o,this.distanceThreshold=f,this.contextWindow=c||window;const m=al(s),g=Eo(m,this.transformPagePoint),{point:x}=g,{timestamp:v}=re;this.history=[{...x,timestamp:v}];const{onSessionStart:S}=l;S&&S(s,Vc(g,this.history));const j={passive:!0,capture:!0};this.removeListeners=tl(Xi(this.contextWindow,"pointermove",this.handlePointerMove,j),Xi(this.contextWindow,"pointerup",this.handlePointerUp,j),Xi(this.contextWindow,"pointercancel",this.handlePointerUp,j)),p&&this.startScrollTracking(p)}startScrollTracking(s){let l=s.parentElement;for(;l;){const o=getComputedStyle(l);(Ay.has(o.overflowX)||Ay.has(o.overflowY))&&this.scrollPositions.set(l,{x:l.scrollLeft,y:l.scrollTop}),l=l.parentElement}this.scrollPositions.set(window,{x:window.scrollX,y:window.scrollY}),window.addEventListener("scroll",this.onElementScroll,{capture:!0}),window.addEventListener("scroll",this.onWindowScroll),this.removeScrollListeners=()=>{window.removeEventListener("scroll",this.onElementScroll,{capture:!0}),window.removeEventListener("scroll",this.onWindowScroll)}}handleScroll(s){const l=this.scrollPositions.get(s);if(!l)return;const o=s===window,c=o?{x:window.scrollX,y:window.scrollY}:{x:s.scrollLeft,y:s.scrollTop},d={x:c.x-l.x,y:c.y-l.y};d.x===0&&d.y===0||(o?this.lastMoveEventInfo&&(this.lastMoveEventInfo.point.x+=d.x,this.lastMoveEventInfo.point.y+=d.y):this.history.length>0&&(this.history[0].x-=d.x,this.history[0].y-=d.y),this.scrollPositions.set(s,c),_t.update(this.updatePoint,!0))}updateHandlers(s){this.handlers=s}end(){this.removeListeners&&this.removeListeners(),this.removeScrollListeners&&this.removeScrollListeners(),this.scrollPositions.clear(),la(this.updatePoint)}}function Eo(n,s){return s?{point:s(n.point)}:n}function Cy(n,s){return{x:n.x-s.x,y:n.y-s.y}}function Vc({point:n},s){return{point:n,delta:Cy(n,ib(s)),offset:Cy(n,L5(s)),velocity:U5(s,.1)}}function L5(n){return n[0]}function ib(n){return n[n.length-1]}function U5(n,s){if(n.length<2)return{x:0,y:0};let l=n.length-1,o=null;const c=ib(n);for(;l>=0&&(o=n[l],!(c.timestamp-o.timestamp>De(s)));)l--;if(!o)return{x:0,y:0};o===n[0]&&n.length>2&&c.timestamp-o.timestamp>De(s)*2&&(o=n[1]);const d=Ge(c.timestamp-o.timestamp);if(d===0)return{x:0,y:0};const f={x:(c.x-o.x)/d,y:(c.y-o.y)/d};return f.x===1/0&&(f.x=0),f.y===1/0&&(f.y=0),f}function H5(n,{min:s,max:l},o){return s!==void 0&&n<s?n=o?Vt(s,n,o.min):Math.max(n,s):l!==void 0&&n>l&&(n=o?Vt(l,n,o.max):Math.min(n,l)),n}function jy(n,s,l){return{min:s!==void 0?n.min+s:void 0,max:l!==void 0?n.max+l-(n.max-n.min):void 0}}function G5(n,{top:s,left:l,bottom:o,right:c}){return{x:jy(n.x,l,c),y:jy(n.y,s,o)}}function My(n,s){let l=s.min-n.min,o=s.max-n.max;return s.max-s.min<n.max-n.min&&([l,o]=[o,l]),{min:l,max:o}}function F5(n,s){return{x:My(n.x,s.x),y:My(n.y,s.y)}}function q5(n,s){let l=.5;const o=ge(n),c=ge(s);return c>o?l=Qi(s.min,s.max-o,n.min):o>c&&(l=Qi(n.min,n.max-c,s.min)),un(0,1,l)}function Y5(n,s){const l={};return s.min!==void 0&&(l.min=s.min-n.min),s.max!==void 0&&(l.max=s.max-n.min),l}const pf=.35;function X5(n=pf){return n===!1?n=0:n===!0&&(n=pf),{x:Ny(n,"left","right"),y:Ny(n,"top","bottom")}}function Ny(n,s,l){return{min:Ry(n,s),max:Ry(n,l)}}function Ry(n,s){return typeof n=="number"?n:n[s]||0}const K5=new WeakMap;class Z5{constructor(s){this.openDragLock=null,this.isDragging=!1,this.currentDirection=null,this.originPoint={x:0,y:0},this.constraints=!1,this.hasMutatedConstraints=!1,this.elastic=te(),this.latestPointerEvent=null,this.latestPanInfo=null,this.visualElement=s}start(s,{snapToCursor:l=!1,distanceThreshold:o}={}){const{presenceContext:c}=this.visualElement;if(c&&c.isPresent===!1)return;const d=v=>{l&&this.snapToCursor(al(v).point),this.stopAnimation()},f=(v,S)=>{const{drag:j,dragPropagation:A,onDragStart:C}=this.getProps();if(j&&!A&&(this.openDragLock&&this.openDragLock(),this.openDragLock=vE(j),!this.openDragLock))return;this.latestPointerEvent=v,this.latestPanInfo=S,this.isDragging=!0,this.currentDirection=null,this.resolveConstraints(),this.visualElement.projection&&(this.visualElement.projection.isAnimationBlocked=!0,this.visualElement.projection.target=void 0),ln(H=>{let U=this.getAxisMotionValue(H).get()||0;if(rn.test(U)){const{projection:L}=this.visualElement;if(L&&L.layout){const K=L.layout.layoutBox[H];K&&(U=ge(K)*(parseFloat(U)/100))}}this.originPoint[H]=U}),C&&_t.update(()=>C(v,S),!1,!0),sf(this.visualElement,"transform");const{animationState:k}=this.visualElement;k&&k.setActive("whileDrag",!0)},p=(v,S)=>{this.latestPointerEvent=v,this.latestPanInfo=S;const{dragPropagation:j,dragDirectionLock:A,onDirectionLock:C,onDrag:k}=this.getProps();if(!j&&!this.openDragLock)return;const{offset:H}=S;if(A&&this.currentDirection===null){this.currentDirection=P5(H),this.currentDirection!==null&&C&&C(this.currentDirection);return}this.updateAxis("x",S.point,H),this.updateAxis("y",S.point,H),this.visualElement.render(),k&&_t.update(()=>k(v,S),!1,!0)},m=(v,S)=>{this.latestPointerEvent=v,this.latestPanInfo=S,this.stop(v,S),this.latestPointerEvent=null,this.latestPanInfo=null},g=()=>{const{dragSnapToOrigin:v}=this.getProps();(v||this.constraints)&&this.startAnimation({x:0,y:0})},{dragSnapToOrigin:x}=this.getProps();this.panSession=new sb(s,{onSessionStart:d,onStart:f,onMove:p,onSessionEnd:m,resumeAnimation:g},{transformPagePoint:this.visualElement.getTransformPagePoint(),dragSnapToOrigin:x,distanceThreshold:o,contextWindow:ab(this.visualElement),element:this.visualElement.current})}stop(s,l){const o=s||this.latestPointerEvent,c=l||this.latestPanInfo,d=this.isDragging;if(this.cancel(),!d||!c||!o)return;const{velocity:f}=c;this.startAnimation(f);const{onDragEnd:p}=this.getProps();p&&_t.postRender(()=>p(o,c))}cancel(){this.isDragging=!1;const{projection:s,animationState:l}=this.visualElement;s&&(s.isAnimationBlocked=!1),this.endPanSession();const{dragPropagation:o}=this.getProps();!o&&this.openDragLock&&(this.openDragLock(),this.openDragLock=null),l&&l.setActive("whileDrag",!1)}endPanSession(){this.panSession&&this.panSession.end(),this.panSession=void 0}updateAxis(s,l,o){const{drag:c}=this.getProps();if(!o||!Ao(s,c,this.currentDirection))return;const d=this.getAxisMotionValue(s);let f=this.originPoint[s]+o[s];this.constraints&&this.constraints[s]&&(f=H5(f,this.constraints[s],this.elastic[s])),d.set(f)}resolveConstraints(){const{dragConstraints:s,dragElastic:l}=this.getProps(),o=this.visualElement.projection&&!this.visualElement.projection.layout?this.visualElement.projection.measure(!1):this.visualElement.projection?.layout,c=this.constraints;s&&As(s)?this.constraints||(this.constraints=this.resolveRefConstraints()):s&&o?this.constraints=G5(o.layoutBox,s):this.constraints=!1,this.elastic=X5(l),c!==this.constraints&&!As(s)&&o&&this.constraints&&!this.hasMutatedConstraints&&ln(d=>{this.constraints!==!1&&this.getAxisMotionValue(d)&&(this.constraints[d]=Y5(o.layoutBox[d],this.constraints[d]))})}resolveRefConstraints(){const{dragConstraints:s,onMeasureDragConstraints:l}=this.getProps();if(!s||!As(s))return!1;const o=s.current,{projection:c}=this.visualElement;if(!c||!c.layout)return!1;c.root&&(c.root.scroll=void 0,c.root.updateScroll());const d=PE(o,c.root,this.visualElement.getTransformPagePoint());let f=F5(c.layout.layoutBox,d);if(l){const p=l(KE(f));this.hasMutatedConstraints=!!p,p&&(f=jx(p))}return f}startAnimation(s){const{drag:l,dragMomentum:o,dragElastic:c,dragTransition:d,dragSnapToOrigin:f,onDragTransitionEnd:p}=this.getProps(),m=this.constraints||{},g=ln(x=>{if(!Ao(x,l,this.currentDirection))return;let v=m&&m[x]||{};(f===!0||f===x)&&(v={min:0,max:0});const S=c?200:1e6,j=c?40:1e7,A={type:"inertia",velocity:o?s[x]:0,bounceStiffness:S,bounceDamping:j,timeConstant:750,restDelta:1,restSpeed:10,...d,...v};return this.startAxisValueAnimation(x,A)});return Promise.all(g).then(p)}startAxisValueAnimation(s,l){const o=this.getAxisMotionValue(s);return sf(this.visualElement,s),o.start(_f(s,o,0,l,this.visualElement,!1))}stopAnimation(){ln(s=>this.getAxisMotionValue(s).stop())}getAxisMotionValue(s){const l=`_drag${s.toUpperCase()}`,c=this.visualElement.getProps()[l];return c||this.visualElement.getValue(s,this.visualElement.latestValues[s]??0)}snapToCursor(s){ln(l=>{const{drag:o}=this.getProps();if(!Ao(l,o,this.currentDirection))return;const{projection:c}=this.visualElement,d=this.getAxisMotionValue(l);if(c&&c.layout){const{min:f,max:p}=c.layout.layoutBox[l],m=d.get()||0;d.set(s[l]-Vt(f,p,.5)+m)}})}scalePositionWithinConstraints(){if(!this.visualElement.current)return;const{drag:s,dragConstraints:l}=this.getProps(),{projection:o}=this.visualElement;if(!As(l)||!o||!this.constraints)return;this.stopAnimation();const c={x:0,y:0};ln(f=>{const p=this.getAxisMotionValue(f);if(p&&this.constraints!==!1){const m=p.get();c[f]=q5({min:m,max:m},this.constraints[f])}});const{transformTemplate:d}=this.visualElement.getProps();this.visualElement.current.style.transform=d?d({},""):"none",o.root&&o.root.updateScroll(),o.updateLayout(),this.constraints=!1,this.resolveConstraints(),ln(f=>{if(!Ao(f,s,null))return;const p=this.getAxisMotionValue(f),{min:m,max:g}=this.constraints[f];p.set(Vt(m,g,c[f]))}),this.visualElement.render()}addListeners(){if(!this.visualElement.current)return;K5.set(this.visualElement,this);const s=this.visualElement.current,l=Xi(s,"pointerdown",g=>{const{drag:x,dragListener:v=!0}=this.getProps(),S=g.target,j=S!==s&&CE(S);x&&v&&!j&&this.start(g)});let o;const c=()=>{const{dragConstraints:g}=this.getProps();As(g)&&g.current&&(this.constraints=this.resolveRefConstraints(),o||(o=Q5(s,g.current,()=>this.scalePositionWithinConstraints())))},{projection:d}=this.visualElement,f=d.addEventListener("measure",c);d&&!d.layout&&(d.root&&d.root.updateScroll(),d.updateLayout()),_t.read(c);const p=Ji(window,"resize",()=>this.scalePositionWithinConstraints()),m=d.addEventListener("didUpdate",(({delta:g,hasLayoutChanged:x})=>{this.isDragging&&x&&(ln(v=>{const S=this.getAxisMotionValue(v);S&&(this.originPoint[v]+=g[v].translate,S.set(S.get()+g[v].translate))}),this.visualElement.render())}));return()=>{p(),l(),f(),m&&m(),o&&o()}}getProps(){const s=this.visualElement.getProps(),{drag:l=!1,dragDirectionLock:o=!1,dragPropagation:c=!1,dragConstraints:d=!1,dragElastic:f=pf,dragMomentum:p=!0}=s;return{...s,drag:l,dragDirectionLock:o,dragPropagation:c,dragConstraints:d,dragElastic:f,dragMomentum:p}}}function Dy(n){let s=!0;return()=>{if(s){s=!1;return}n()}}function Q5(n,s,l){const o=Lg(n,Dy(l)),c=Lg(s,Dy(l));return()=>{o(),c()}}function Ao(n,s,l){return(s===!0||s===n)&&(l===null||l===n)}function P5(n,s=10){let l=null;return Math.abs(n.y)>s?l="y":Math.abs(n.x)>s&&(l="x"),l}class $5 extends ua{constructor(s){super(s),this.removeGroupControls=Fe,this.removeListeners=Fe,this.controls=new Z5(s)}mount(){const{dragControls:s}=this.node.getProps();s&&(this.removeGroupControls=s.subscribe(this.controls)),this.removeListeners=this.controls.addListeners()||Fe}update(){const{dragControls:s}=this.node.getProps(),{dragControls:l}=this.node.prevProps||{};s!==l&&(this.removeGroupControls(),s&&(this.removeGroupControls=s.subscribe(this.controls)))}unmount(){this.removeGroupControls(),this.removeListeners(),this.controls.isDragging||this.controls.endPanSession()}}const _c=n=>(s,l)=>{n&&_t.update(()=>n(s,l),!1,!0)};class J5 extends ua{constructor(){super(...arguments),this.removePointerDownListener=Fe}onPointerDown(s){this.session=new sb(s,this.createPanHandlers(),{transformPagePoint:this.node.getTransformPagePoint(),contextWindow:ab(this.node)})}createPanHandlers(){const{onPanSessionStart:s,onPanStart:l,onPan:o,onPanEnd:c}=this.node.getProps();return{onSessionStart:_c(s),onStart:_c(l),onMove:_c(o),onEnd:(d,f)=>{delete this.session,c&&_t.postRender(()=>c(d,f))}}}mount(){this.removePointerDownListener=Xi(this.node.current,"pointerdown",s=>this.onPointerDown(s))}update(){this.session&&this.session.updateHandlers(this.createPanHandlers())}unmount(){this.removePointerDownListener(),this.session&&this.session.end()}}let Lc=!1;class W5 extends z.Component{componentDidMount(){const{visualElement:s,layoutGroup:l,switchLayoutGroup:o,layoutId:c}=this.props,{projection:d}=s;d&&(l.group&&l.group.add(d),o&&o.register&&c&&o.register(d),Lc&&d.root.didUpdate(),d.addEventListener("animationComplete",()=>{this.safeToRemove()}),d.setOptions({...d.options,layoutDependency:this.props.layoutDependency,onExitComplete:()=>this.safeToRemove()})),zo.hasEverUpdated=!0}getSnapshotBeforeUpdate(s){const{layoutDependency:l,visualElement:o,drag:c,isPresent:d}=this.props,{projection:f}=o;return f&&(f.isPresent=d,s.layoutDependency!==l&&f.setOptions({...f.options,layoutDependency:l}),Lc=!0,c||s.layoutDependency!==l||l===void 0||s.isPresent!==d?f.willUpdate():this.safeToRemove(),s.isPresent!==d&&(d?f.promote():f.relegate()||_t.postRender(()=>{const p=f.getStack();(!p||!p.members.length)&&this.safeToRemove()}))),null}componentDidUpdate(){const{visualElement:s,layoutAnchor:l}=this.props,{projection:o}=s;o&&(o.options.layoutAnchor=l,o.root.didUpdate(),Gf.postRender(()=>{!o.currentAnimation&&o.isLead()&&this.safeToRemove()}))}componentWillUnmount(){const{visualElement:s,layoutGroup:l,switchLayoutGroup:o}=this.props,{projection:c}=s;Lc=!0,c&&(c.scheduleCheckAfterUnmount(),l&&l.group&&l.group.remove(c),o&&o.deregister&&o.deregister(c))}safeToRemove(){const{safeToRemove:s}=this.props;s&&s()}render(){return null}}function lb(n){const[s,l]=Qx(),o=z.useContext(Tf);return h.jsx(W5,{...n,layoutGroup:o,switchLayoutGroup:z.useContext(eb),isPresent:s,safeToRemove:l})}const I5={pan:{Feature:J5},drag:{Feature:$5,ProjectionNode:Zx,MeasureLayout:lb}};function ky(n,s,l){const{props:o}=n;n.animationState&&o.whileHover&&n.animationState.setActive("whileHover",l==="Start");const c="onHover"+l,d=o[c];d&&_t.postRender(()=>d(s,al(s)))}class tC extends ua{mount(){const{current:s}=this.node;s&&(this.unmount=TE(s,(l,o)=>(ky(this.node,o,"Start"),c=>ky(this.node,c,"End"))))}unmount(){}}class eC extends ua{constructor(){super(...arguments),this.isActive=!1}onFocus(){let s=!1;try{s=this.node.current.matches(":focus-visible")}catch{s=!0}!s||!this.node.animationState||(this.node.animationState.setActive("whileFocus",!0),this.isActive=!0)}onBlur(){!this.isActive||!this.node.animationState||(this.node.animationState.setActive("whileFocus",!1),this.isActive=!1)}mount(){this.unmount=tl(Ji(this.node.current,"focus",()=>this.onFocus()),Ji(this.node.current,"blur",()=>this.onBlur()))}unmount(){}}function Oy(n,s,l){const{props:o}=n;if(n.current instanceof HTMLButtonElement&&n.current.disabled)return;n.animationState&&o.whileTap&&n.animationState.setActive("whileTap",l==="Start");const c="onTap"+(l==="End"?"":l),d=o[c];d&&_t.postRender(()=>d(s,al(s)))}class nC extends ua{mount(){const{current:s}=this.node;if(!s)return;const{globalTapTarget:l,propagate:o}=this.node.props;this.unmount=ME(s,(c,d)=>(Oy(this.node,d,"Start"),(f,{success:p})=>Oy(this.node,f,p?"End":"Cancel")),{useGlobalTarget:l,stopPropagation:o?.tap===!1})}unmount(){}}const gf=new WeakMap,Uc=new WeakMap,aC=n=>{const s=gf.get(n.target);s&&s(n)},sC=n=>{n.forEach(aC)};function iC({root:n,...s}){const l=n||document;Uc.has(l)||Uc.set(l,{});const o=Uc.get(l),c=JSON.stringify(s);return o[c]||(o[c]=new IntersectionObserver(sC,{root:n,...s})),o[c]}function lC(n,s,l){const o=iC(s);return gf.set(n,l),o.observe(n),()=>{gf.delete(n),o.unobserve(n)}}const oC={some:0,all:1};class rC extends ua{constructor(){super(...arguments),this.hasEnteredView=!1,this.isInView=!1}startObserver(){this.stopObserver?.();const{viewport:s={}}=this.node.getProps(),{root:l,margin:o,amount:c="some",once:d}=s,f={root:l?l.current:void 0,rootMargin:o,threshold:typeof c=="number"?c:oC[c]},p=m=>{const{isIntersecting:g}=m;if(this.isInView===g||(this.isInView=g,d&&!g&&this.hasEnteredView))return;g&&(this.hasEnteredView=!0),this.node.animationState&&this.node.animationState.setActive("whileInView",g);const{onViewportEnter:x,onViewportLeave:v}=this.node.getProps(),S=g?x:v;S&&S(m)};this.stopObserver=lC(this.node.current,f,p)}mount(){this.startObserver()}update(){if(typeof IntersectionObserver>"u")return;const{props:s,prevProps:l}=this.node;["amount","margin","root"].some(uC(s,l))&&this.startObserver()}unmount(){this.stopObserver?.(),this.hasEnteredView=!1,this.isInView=!1}}function uC({viewport:n={}},{viewport:s={}}={}){return l=>n[l]!==s[l]}const cC={inView:{Feature:rC},tap:{Feature:nC},focus:{Feature:eC},hover:{Feature:tC}},fC={layout:{ProjectionNode:Zx,MeasureLayout:lb}},dC={...z5,...cC,...I5,...fC},Bt=R5(dC,D5);function ob({className:n}){return h.jsxs("svg",{viewBox:"0 0 100 100",className:n,"aria-hidden":!0,children:[h.jsx("defs",{children:h.jsxs("radialGradient",{id:"bg-ball",cx:"35%",cy:"30%",r:"75%",children:[h.jsx("stop",{offset:"0%",stopColor:"#ff6b5e"}),h.jsx("stop",{offset:"45%",stopColor:"#E52525"}),h.jsx("stop",{offset:"100%",stopColor:"#7d0d10"})]})}),h.jsx("circle",{cx:"50",cy:"50",r:"48",fill:"url(#bg-ball)"}),h.jsx("path",{d:"M22 12 C 44 34, 44 66, 22 88",fill:"none",stroke:"#F8F5E8",strokeOpacity:".85",strokeWidth:"2.2"}),h.jsx("path",{d:"M30 8 C 54 32, 54 68, 30 92",fill:"none",stroke:"#F8F5E8",strokeOpacity:".85",strokeWidth:"2.2"}),Array.from({length:9}).map((s,l)=>{const o=18+l*8,c=30+Math.sin(l/8*Math.PI)*15;return h.jsx("path",{d:`M${c-4} ${o-2} l3 3 M${c+6} ${o-2} l-3 3`,stroke:"#F8F5E8",strokeOpacity:".6",strokeWidth:"1.3"},l)}),h.jsx("ellipse",{cx:"34",cy:"28",rx:"12",ry:"7",fill:"#fff",opacity:".18",transform:"rotate(-30 34 28)"})]})}function Va({className:n,broken:s}){return h.jsxs("svg",{viewBox:"0 0 60 100",className:n,"aria-hidden":!0,children:[[10,27,44].map(l=>h.jsx("rect",{x:l,y:"14",width:"6",height:"84",rx:"3",fill:"#F8F5E8"},l)),h.jsx(Bt.rect,{x:"8",y:"8",width:"24",height:"5",rx:"2.5",fill:"#F5C451",animate:s?{x:-20,y:-30,rotate:-60,opacity:0}:{x:8,y:8,rotate:0,opacity:1},transition:{duration:.5,ease:"easeOut"}}),h.jsx(Bt.rect,{x:"28",y:"8",width:"24",height:"5",rx:"2.5",fill:"#F5C451",animate:s?{x:60,y:-26,rotate:70,opacity:0}:{x:28,y:8,rotate:0,opacity:1},transition:{duration:.5,ease:"easeOut"}})]})}function _a({team:n,size:s=40,className:l}){const o=n.name.split(/\s+/).filter(Boolean).slice(0,2).map(c=>c[0]).join("").toUpperCase()||"T";return h.jsx("div",{className:Rt("shrink-0 rounded-full grid place-items-center overflow-hidden font-extrabold text-[#F8F5E8] ring-2 ring-[#F8F5E8]/70",l),style:{width:s,height:s,background:n.color,fontSize:s*.36},children:n.logo?h.jsx("img",{src:n.logo,alt:"",className:"w-full h-full object-cover"}):o})}function Ki({open:n,onClose:s,title:l,children:o,dark:c}){return z.useEffect(()=>{if(!n)return;const d=f=>f.key==="Escape"&&s();return window.addEventListener("keydown",d),()=>window.removeEventListener("keydown",d)},[n,s]),h.jsx(Ns,{children:n&&h.jsxs(Bt.div,{className:"fixed inset-0 z-50 flex items-end sm:items-center justify-center",initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},children:[h.jsx("div",{className:"absolute inset-0 bg-[#0B1C10]/60 backdrop-blur-[2px]",onClick:s,"data-testid":"sheet-backdrop"}),h.jsxs(Bt.div,{role:"dialog","aria-modal":!0,className:Rt("relative w-full sm:max-w-md max-h-[90dvh] overflow-y-auto rounded-t-[2rem] sm:rounded-[2rem] p-5 pb-8 shadow-2xl",c?"bg-[#102B17] text-[#F8F5E8]":"bg-[#FBF9F0] text-[#0B1C10]"),initial:{y:60,opacity:0},animate:{y:0,opacity:1},exit:{y:60,opacity:0},transition:{type:"spring",damping:26,stiffness:320},children:[h.jsx("div",{className:"mx-auto mb-3 h-1.5 w-10 rounded-full bg-current opacity-15 sm:hidden"}),h.jsxs("div",{className:"flex items-center justify-between mb-4",children:[h.jsx("h2",{className:"text-lg font-bold",children:l}),h.jsx("button",{onClick:s,className:"press h-9 w-9 grid place-items-center rounded-full bg-current/10","aria-label":"Close","data-testid":"button-close-sheet",children:h.jsx(r0,{className:"h-4 w-4"})})]}),o]})]})})}function Qo({open:n,onClose:s,title:l,body:o,confirmLabel:c,onConfirm:d,danger:f}){return h.jsxs(Ki,{open:n,onClose:s,title:l,children:[h.jsx("p",{className:"text-sm text-[#0B1C10]/70 mb-6",children:o}),h.jsxs("div",{className:"grid grid-cols-2 gap-3",children:[h.jsx("button",{onClick:s,className:"press h-12 rounded-2xl bg-[#0B1C10]/8 font-semibold","data-testid":"button-confirm-cancel",children:"Keep playing"}),h.jsx("button",{onClick:()=>{d(),s()},className:Rt("press h-12 rounded-2xl font-bold text-[#F8F5E8]",f?"bg-[#E52525]":"bg-[#102B17]"),"data-testid":"button-confirm-ok",children:c})]})]})}function Vo({value:n,onChange:s,min:l,max:o,label:c}){return h.jsxs("div",{className:"flex items-center justify-between rounded-2xl bg-[#0B1C10]/5 p-2",children:[h.jsx("span",{className:"pl-2 text-sm font-medium",children:c}),h.jsxs("div",{className:"flex items-center gap-2",children:[h.jsx("button",{className:"press h-10 w-10 rounded-full bg-[#F8F5E8] shadow-sm font-bold disabled:opacity-30",disabled:n<=l,onClick:()=>s(n-1),"data-testid":`button-dec-${c}`,children:"-"}),h.jsx(Bt.span,{initial:{scale:1.4},animate:{scale:1},className:"w-8 text-center text-xl font-extrabold",children:n},n),h.jsx("button",{className:"press h-10 w-10 rounded-full bg-[#102B17] text-[#F8F5E8] font-bold disabled:opacity-30",disabled:n>=o,onClick:()=>s(n+1),"data-testid":`button-inc-${c}`,children:"+"})]})]})}function Zi({checked:n,onChange:s,label:l,hint:o,id:c}){return h.jsxs("button",{type:"button",onClick:()=>s(!n),className:"w-full flex items-center justify-between gap-3 rounded-2xl bg-[#0B1C10]/5 px-4 py-3 text-left","data-testid":`toggle-${c}`,"aria-pressed":n,children:[h.jsxs("span",{children:[h.jsx("span",{className:"block text-sm font-semibold",children:l}),o&&h.jsx("span",{className:"block text-xs opacity-60",children:o})]}),h.jsx("span",{className:Rt("relative h-7 w-12 shrink-0 rounded-full transition-colors",n?"bg-[#4CAF50]":"bg-[#0B1C10]/20"),children:h.jsx(Bt.span,{layout:!0,transition:{type:"spring",stiffness:500,damping:30},className:Rt("absolute top-1 h-5 w-5 rounded-full bg-[#F8F5E8] shadow",n?"right-1":"left-1")})})]})}function Po({eyebrow:n,title:s,right:l}){return h.jsxs("header",{className:"flex items-end justify-between gap-4 pt-6 pb-5",children:[h.jsxs("div",{children:[h.jsx("p",{className:"text-xs font-bold uppercase tracking-[0.2em] text-[#4CAF50]",children:n}),h.jsx("h1",{className:"text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0B1C10]",children:s})]}),l]})}const hC=[{href:"/",label:"Home",icon:yS},{href:"/matches",label:"Matches",icon:pS},{href:"/setup",label:"Create",icon:o0,center:!0},{href:"/stats",label:"Stats",icon:tS},{href:"/profile",label:"Profile",icon:qS}];function mC(){const{settings:n}=Mn(),[s,l]=z.useState(()=>{try{return!sessionStorage.getItem("gc.splash")}catch{return!1}}),[o,c]=z.useState(!1);return z.useEffect(()=>{if(!s)return;try{sessionStorage.setItem("gc.splash","1")}catch{}const d=!n.animations,f=setTimeout(()=>c(!0),d?0:620),p=setTimeout(()=>l(!1),d?300:1500);return()=>{clearTimeout(f),clearTimeout(p)}},[s,n.animations]),h.jsx(Ns,{children:s&&h.jsxs(Bt.div,{className:"fixed inset-0 z-[90] pitch-bg mow grid place-items-center",exit:{opacity:0},transition:{duration:.35},"data-testid":"splash",children:[h.jsxs("div",{className:"relative w-64 h-40",children:[h.jsx(Va,{broken:o,className:"absolute right-6 bottom-0 h-32"}),h.jsx(Bt.div,{className:"absolute left-0 bottom-6 h-10 w-10",initial:{x:0,y:-80,rotate:0},animate:{x:168,y:0,rotate:540},transition:{duration:.62,ease:[.4,0,.9,.6]},children:h.jsx(ob,{className:"h-full w-full"})})]}),h.jsxs(Bt.p,{initial:{opacity:0,y:10},animate:{opacity:1,y:0},transition:{delay:.5},className:"absolute bottom-[22%] text-[#F8F5E8] text-3xl font-black tracking-tight",children:["GULLY ",h.jsx("span",{className:"text-[#F5C451]",children:"CRIX"})]})]})})}function pC(){const{saveError:n,retrySave:s,recoveryNote:l,dismissRecovery:o}=Mn(),c=n??l;return c?h.jsxs("div",{className:Rt("fixed top-3 inset-x-3 z-[70] mx-auto max-w-lg rounded-2xl px-4 py-3 flex items-center gap-3 shadow-lg text-sm",n?"bg-[#E52525] text-[#F8F5E8]":"bg-[#F5C451] text-[#0B1C10]"),role:"alert","data-testid":"status-save",children:[h.jsx(_S,{className:"h-5 w-5 shrink-0"}),h.jsx("span",{className:"flex-1 font-medium",children:c}),n?h.jsxs("button",{onClick:s,className:"press flex items-center gap-1 font-bold rounded-full bg-[#F8F5E8]/20 px-3 py-1","data-testid":"button-retry-save",children:[h.jsx(kS,{className:"h-3.5 w-3.5"}),"Retry"]}):h.jsx("button",{onClick:o,"aria-label":"Dismiss","data-testid":"button-dismiss-recovery",children:h.jsx(r0,{className:"h-4 w-4"})})]}):null}
 // --- GULLY AI CHATBOT COMPONENT ---
+function renderGullyText(text) {
+  if (!text) return null;
+  const lines = String(text).split("\n");
+  return lines.map((line, lineIdx) => {
+    const tokens = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g);
+    const nodes = tokens.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+        return h.jsx("strong", { className: "font-bold", children: part.slice(2, -2) }, i);
+      }
+      if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+        return h.jsx("em", { className: "italic", children: part.slice(1, -1) }, i);
+      }
+      if (part.startsWith("`") && part.endsWith("`") && part.length > 2) {
+        return h.jsx("code", {
+          style: { backgroundColor: "rgba(11, 28, 16, 0.08)", padding: "1px 5px", borderRadius: "4px", fontSize: "0.85em", fontWeight: 600 },
+          children: part.slice(1, -1)
+        }, i);
+      }
+      return part;
+    });
+    return h.jsxs(z.Fragment, {
+      children: [nodes, lineIdx < lines.length - 1 ? h.jsx("br", {}) : null]
+    }, lineIdx);
+  });
+}
+
 function GullyAIChatbot({ isMatch, currentPath }) {
   const { matches, settings } = Mn();
   const [isOpen, setIsOpen] = z.useState(false);
@@ -54,17 +80,17 @@ function GullyAIChatbot({ isMatch, currentPath }) {
     setLoading(true);
     setErrorMsg(null);
 
-    // Compute stats summary for context
     let totalRuns = 0, totalWkts = 0, totalBalls = 0, totalSixes = 0, totalFours = 0;
     matches.forEach(m => {
       if (Array.isArray(m.events)) {
-        m.events.forEach(ev => {
+        const activeEvents = typeof m.cursor === "number" ? m.events.slice(0, m.cursor) : m.events;
+        activeEvents.forEach(ev => {
           if (ev.type === "ball") {
             totalRuns += ev.runs || 0;
             if (ev.kind !== "wide" && ev.kind !== "noball") totalBalls++;
             if (ev.kind === "wicket") totalWkts++;
-            if (ev.runs === 6) totalSixes++;
-            if (ev.runs === 4) totalFours++;
+            if (ev.runs === 6 && ev.kind !== "wide") totalSixes++;
+            if (ev.runs === 4 && ev.kind !== "wide") totalFours++;
           }
         });
       }
@@ -115,7 +141,7 @@ function GullyAIChatbot({ isMatch, currentPath }) {
         {
           id: "err-" + Date.now(),
           role: "assistant",
-          text: "⚠️ **Connection Error:** Could not reach the Gully AI service. Make sure the local server is running on port 5000.",
+          text: "⚠️ **Connection Error:** Could not reach the Gully AI service. Please check that the server is running.",
           time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
         }
       ]);
@@ -131,43 +157,105 @@ function GullyAIChatbot({ isMatch, currentPath }) {
     "📈 How is Net Run Rate calculated?"
   ];
 
+  const fabSize = isMatch ? "52px" : "60px";
+
   return h.jsxs("div", {
     className: "gully-ai-root",
     children: [
-      // Floating circular button (always positioned at bottom-right corner)
+      // Highlighted circular Gully AI floating button at bottom-right corner
       h.jsxs("button", {
         onClick: () => setIsOpen(!isOpen),
         style: {
           position: "fixed",
           right: "24px",
           bottom: isMatch ? "16px" : "24px",
-          zIndex: 45
+          width: fabSize,
+          height: fabSize,
+          zIndex: 45,
+          backgroundColor: "#F5C451",
+          color: "#0B1C10",
+          border: "3px solid #F8F5E8",
+          borderRadius: "9999px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          transition: "transform 0.2s ease"
         },
         className: Rt(
-          "press h-14 w-14 rounded-full bg-[#102B17] text-[#F8F5E8] shadow-[0_10px_25px_-5px_rgba(11,28,16,.6)] ring-4 ring-[#F8F5E8] flex items-center justify-center transition-transform duration-200",
+          "press gully-ai-fab",
           isOpen && "rotate-90 scale-95"
         ),
         "aria-label": "Toggle Gully AI Chatbot",
         "title": "Gully AI Cricket Assistant",
         children: [
-          h.jsxs("svg", {
-            viewBox: "0 0 24 24",
-            className: "h-7 w-7",
-            fill: "none",
-            stroke: "currentColor",
-            strokeWidth: "2",
-            strokeLinecap: "round",
-            strokeLinejoin: "round",
+          // Inner dark forest green circular medallion
+          h.jsxs("div", {
+            style: {
+              width: isMatch ? "38px" : "44px",
+              height: isMatch ? "38px" : "44px",
+              borderRadius: "9999px",
+              backgroundColor: "#102B17",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative"
+            },
             children: [
-              h.jsx("circle", { cx: "12", cy: "12", r: "9", stroke: "#F5C451" }),
-              h.jsx("path", { d: "M7.5 7.5 C 10 10, 10 14, 7.5 16.5", stroke: "#F8F5E8", strokeWidth: "1.5" }),
-              h.jsx("path", { d: "M16.5 7.5 C 14 10, 14 14, 16.5 16.5", stroke: "#F8F5E8", strokeWidth: "1.5" }),
-              h.jsx("circle", { cx: "12", cy: "12", r: "1.5", fill: "#F5C451", stroke: "none" })
+              h.jsxs("svg", {
+                viewBox: "0 0 28 28",
+                style: { width: isMatch ? "24px" : "28px", height: isMatch ? "24px" : "28px" },
+                fill: "none",
+                children: [
+                  h.jsx("circle", { cx: "14", cy: "14", r: "10", stroke: "#F5C451", strokeWidth: "1.8" }),
+                  h.jsx("path", { d: "M9 8.5 C 12 11.5, 12 16.5, 9 19.5", stroke: "#F8F5E8", strokeWidth: "1.5", strokeLinecap: "round" }),
+                  h.jsx("path", { d: "M19 8.5 C 16 11.5, 16 16.5, 19 19.5", stroke: "#F8F5E8", strokeWidth: "1.5", strokeLinecap: "round" }),
+                  // Sparkling 4-point star glint (bling) in white & yellow
+                  h.jsx("path", {
+                    className: "gully-ai-sparkle",
+                    d: "M14 9.5 L15.1 12.9 L18.5 14 L15.1 15.1 L14 18.5 L12.9 15.1 L9.5 14 L12.9 12.9 Z",
+                    fill: "#FFFFFF"
+                  })
+                ]
+              })
             ]
           }),
+          // Top-left mini sparkle dot
           !isOpen && h.jsx("span", {
-            className: "absolute -top-1 -right-1 h-5 px-1.5 rounded-full bg-[#F5C451] text-[#0B1C10] font-black text-[10px] grid place-items-center ring-2 ring-[#102B17]",
-            children: "AI"
+            className: "gully-ai-sparkle",
+            style: {
+              position: "absolute",
+              bottom: "2px",
+              left: "2px",
+              width: "12px",
+              height: "12px",
+              display: "grid",
+              placeItems: "center",
+              color: "#FFFFFF",
+              fontSize: "11px",
+              fontWeight: 900,
+              textShadow: "0 1px 2px #0B1C10"
+            },
+            children: "✦"
+          }),
+          // Crisp "GULLY AI" badge pill anchored on top edge
+          !isOpen && h.jsx("span", {
+            style: {
+              position: "absolute",
+              top: "-10px",
+              right: "-4px",
+              padding: "2px 7px",
+              borderRadius: "9999px",
+              backgroundColor: "#102B17",
+              color: "#F5C451",
+              border: "1.5px solid #F5C451",
+              fontSize: "9px",
+              fontWeight: 900,
+              letterSpacing: "0.06em",
+              whiteSpace: "nowrap",
+              boxShadow: "0 2px 6px rgba(11, 28, 16, 0.45)"
+            },
+            children: "✦ GULLY AI"
           })
         ]
       }),
@@ -175,13 +263,11 @@ function GullyAIChatbot({ isMatch, currentPath }) {
       // Drawer panel only rendered when isOpen is true
       isOpen && h.jsxs("div", {
         children: [
-          // Backdrop overlay
           h.jsx("div", {
             onClick: () => setIsOpen(false),
             style: { position: "fixed", inset: 0, zIndex: 55, backgroundColor: "rgba(11, 28, 16, 0.45)", backdropFilter: "blur(2px)" }
           }),
 
-          // Sliding chat drawer panel from the right
           h.jsxs("aside", {
             style: {
               position: "fixed",
@@ -208,7 +294,7 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                     children: [
                       h.jsx("div", {
                         className: "h-9 w-9 rounded-full bg-[#F5C451] text-[#0B1C10] grid place-items-center font-black text-xs shadow",
-                        children: "AI"
+                        children: "✦ AI"
                       }),
                       h.jsxs("div", {
                         children: [
@@ -236,7 +322,7 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                     onClick: () => setIsOpen(false),
                     className: "press h-9 w-9 rounded-full bg-[#F8F5E8]/10 hover:bg-[#F8F5E8]/20 grid place-items-center text-[#F8F5E8]",
                     "aria-label": "Close Gully AI",
-                    children: h.jsx("svg", {
+                    children: h.jsxs("svg", {
                       viewBox: "0 0 24 24",
                       className: "h-5 w-5",
                       fill: "none",
@@ -259,7 +345,6 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                 children: [
                   messages.map((m) =>
                     h.jsxs("div", {
-                      key: m.id,
                       className: Rt(
                         "flex flex-col max-w-[88%]",
                         m.role === "user" ? "ml-auto items-end" : "mr-auto items-start"
@@ -267,33 +352,33 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                       children: [
                         h.jsx("div", {
                           className: Rt(
-                            "rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap shadow-sm",
+                            "rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm",
                             m.role === "user"
                               ? "bg-[#102B17] text-[#F8F5E8] rounded-tr-sm"
                               : "bg-[#FBF9F0] text-[#0B1C10] border border-[#0B1C10]/10 rounded-tl-sm"
                           ),
-                          children: m.text
+                          children: renderGullyText(m.text)
                         }),
                         h.jsx("span", {
                           className: "text-[10px] text-[#0B1C10]/40 mt-1 px-1 font-medium",
                           children: m.time
                         })
                       ]
-                    })
+                    }, m.id)
                   ),
 
                   // Typing indicator
                   loading && h.jsxs("div", {
                     className: "flex items-center gap-1.5 p-3 rounded-2xl bg-[#FBF9F0] border border-[#0B1C10]/10 w-fit",
                     children: [
-                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "0ms" } }),
-                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "150ms" } }),
-                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] animate-bounce", style: { animationDelay: "300ms" } }),
+                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] gully-bounce", style: { animationDelay: "0ms" } }),
+                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] gully-bounce", style: { animationDelay: "150ms" } }),
+                      h.jsx("span", { className: "h-2 w-2 rounded-full bg-[#4CAF50] gully-bounce", style: { animationDelay: "300ms" } }),
                       h.jsx("span", { className: "text-xs font-semibold text-[#0B1C10]/60 ml-1.5", children: "Gully AI is thinking..." })
                     ]
                   }),
 
-                  // Quick question chips when chat has few messages
+                  // Quick question chips
                   messages.length <= 2 && h.jsxs("div", {
                     className: "pt-2",
                     children: [
@@ -305,11 +390,10 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                         className: "flex flex-wrap gap-1.5",
                         children: quickQuestions.map((q) =>
                           h.jsx("button", {
-                            key: q,
                             onClick: () => handleSend(q),
                             className: "press text-xs font-semibold px-3 py-1.5 rounded-full bg-[#102B17]/6 hover:bg-[#102B17]/12 text-[#0B1C10] border border-[#0B1C10]/10 text-left transition-colors",
                             children: q
-                          })
+                          }, q)
                         )
                       })
                     ]
@@ -319,7 +403,7 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                 ]
               }),
 
-              // Error banner if any
+              // Error banner
               errorMsg && h.jsxs("div", {
                 className: "mx-4 mb-2 p-2.5 rounded-xl bg-[#E52525]/10 border border-[#E52525]/20 text-[#E52525] text-xs font-semibold flex items-center justify-between",
                 children: [
@@ -354,7 +438,7 @@ function GullyAIChatbot({ isMatch, currentPath }) {
                     disabled: !input.trim() || loading,
                     className: "press h-11 w-11 rounded-2xl bg-[#F5C451] text-[#0B1C10] grid place-items-center font-bold hover:brightness-105 active:scale-95 disabled:opacity-40 shrink-0",
                     "aria-label": "Send message",
-                    children: h.jsx("svg", {
+                    children: h.jsxs("svg", {
                       viewBox: "0 0 24 24",
                       className: "h-5 w-5",
                       fill: "none",
