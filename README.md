@@ -2,6 +2,9 @@
 
 > Fast, street-style cricket scoring app with **Gully AI** — your personal cricket rules analyst.
 
+🔗 **Live Application URL:** [https://gully-crix-en.vercel.app/](https://gully-crix-en.vercel.app/)  
+📂 **GitHub Repository:** [https://github.com/Yamzxx/GullyCrix](https://github.com/Yamzxx/GullyCrix)
+
 ---
 
 ## Features
