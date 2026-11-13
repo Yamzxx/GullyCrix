@@ -167,8 +167,11 @@ function GullyAIChatbot({ isMatch, currentPath }) {
         onClick: () => setIsOpen(!isOpen),
         style: {
           position: "fixed",
-          right: "24px",
-          bottom: isMatch ? "16px" : "24px",
+          right: "16px",
+          // On mobile pages: bottom nav bar takes ~96px, so sit 108px up (12px gap)
+          // On match pages (isMatch): no nav bar, just 16px from bottom
+          // On md+: bottom-6 (24px) is fine since the sidebar is left-side
+          bottom: isMatch ? "16px" : "112px",
           width: fabSize,
           height: fabSize,
           zIndex: 45,
@@ -274,7 +277,7 @@ function GullyAIChatbot({ isMatch, currentPath }) {
               top: 0,
               right: 0,
               bottom: 0,
-              width: "390px",
+              width: "min(390px, 100vw)",
               maxWidth: "100vw",
               zIndex: 60,
               display: "flex",
